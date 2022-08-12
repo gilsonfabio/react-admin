@@ -26,6 +26,10 @@ import OrgAdmin from './pages/OrgAdmin';
 import AltOrgAdmin from './pages/AltOrgAdmin';
 import NewOrgAdmin from './pages/NewOrgAdmin';
 
+import Cargos from './pages/Cargos';
+import AltCargo from './pages/AltCargo';
+import NewCargo from './pages/NewCargo';
+
 import Servidores from './pages/Servidores';
 import AltServidor from './pages/AltServidores';
 import NewServidor from './pages/NewServidor';
@@ -76,6 +80,10 @@ export default function MainRoutes() {
             <Route path="/orgadmin" element={<OrgAdmin />} />
             <Route path="/altorgadmin/:orgId" element={<AltOrgAdmin />} />
             <Route path="/neworgadmin" element={<NewOrgAdmin />} />
+
+            <Route path="/cargos" element={<Cargos />} />
+            <Route path="/altcargo/:crgId" element={<AltCargo />} />
+            <Route path="/newcargo" element={<NewCargo />} />
 
             <Route path="/servidores" element={<Servidores />} />
             <Route path="/altservidor/:usrId" element={<AltServidor/>} />

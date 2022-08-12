@@ -62,7 +62,7 @@ export default function Login() {
     <div className={classes.root}>
       <div>
         <Typography className={classes.sloganTitle} variant="h3" component="h1">
-          Card Admin
+          Card Admin 
         </Typography>
         <Typography variant="h4" component="h2">
           O seu administrador de cartões

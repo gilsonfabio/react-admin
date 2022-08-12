@@ -83,6 +83,8 @@ function PdfCnvContrato() {
     const [bairro, setBairro] = useState('');
     const [cep, setCep] = useState('');
     const [telefone, setTelefone] = useState('');
+    const [orgaoadm, setOrgAdmin] = useState('');
+    const [tipUser, setTipUser] = useState('');
 
     //const srvId = localStorage.getItem('usuarioId');
     const params = useParams(); 
@@ -135,7 +137,7 @@ function PdfCnvContrato() {
             },
             {text: `Nome do Servidor: ${nomServidor}\n\n`, fontsize: 10},
             {text: `Nº Identidade:${identidade} / Orgão Emissor: ${orgEmissor} / Nº CPF: ${cpfServidor} \n\n`, fontsize: 10},
-            {text: `Matricula: ${matricula} / Cargo: ${cargo} / Lotação: ${lotacao} \n\n`, fontsize: 10},
+            {text: `Matricula: ${matricula} / Cargo: ${cargo} / Lotação: ${lotacao} / Orgão Adm: ${orgaoadm} \n\n`, fontsize: 10},
             {text: `Endereço: ${endereco} / Bairro: ${bairro} / Cep: ${cep} \n\n`, fontsize: 10},
             {text: `Telefones: ${telefone} \n\n`, fontsize: 10},
             {text: 'Com base nas normas legais vigentes, ajustam e celebram entre si o presente contrato, regendo-se o mesmo pelas cláusulas e condições seguintes:\n\n'},
@@ -148,12 +150,13 @@ function PdfCnvContrato() {
                     'no sistema parcelado e em caso de comprometimento deste percentual, poderá por analise da administradora, conceder mais 15% (quinze por cento) no sistema rotativo',
                     '(uma vez) para compra exclusiva de alimentos, remédios e itens de primeira necessidade, conforme regras do estatuto sindical.\n\n',
                     {text: 'Parágrafo 2º', fontSize: 10, bold: true},
-                    ': O CONTRATANTE (servidor público) autoriza o desconto em folha de pagamento, dos valores gastos mensalmente com o Cartão, a serem realizados no mês imediatamente',
+                    ': O CONTRATANTE (servidor público) autoriza o desconto em folha de pagamento, dos valores gastos mensalmente com o Cartão, a serem realizados no mês imediatamente ',
                     'posterior às compras e em caso de exoneração, aposentadoria ou desligamento por qualquer motivo, autoriza até 100% (cem por cento) o valor em sua rescisão ',
                     'contratual para a garantia dos valores restantes. \n\n',
                     {text: 'Assinatura: ____________________________________________________________________________________________________\n\n', fontSize: 10, bold: true},
                     {text: 'Parágrafo 3º', fontSize: 10, bold: true},
-                    ': O CONTRATANTE (servidor público), não poderá emprestar seu cartão a terceiros, simular compras sob pena de exclusão do uso do cartão.\n\n',
+                    ': O CONTRATANTE (servidor público) se obriga a manter seus dados atualizados, além de informar imediatamente, por escrito a perda do cartão, solicitando seu bloqueio,',
+                    'além de se responsabilizar quanto ao uso correto da senha e o uso do cartão respeitando sempre as regras aqui pactuadas.\n\n',
                     {text: 'Parágrafo 4º', fontSize: 10, bold: true},
                     ': O CONTRATANTE (servidor público), não poderá emprestar seu cartão a terceiros, simular compras sob pena de exclusão do uso do cartão.\n\n',
                     {text: 'Parágrafo 5º', fontSize: 10, bold: true},
@@ -237,7 +240,10 @@ function PdfCnvContrato() {
     };
 
     useEffect(() => {
-        let srvId = params.usrId;  
+        let srvId = params.usrId;
+        
+        console.log('Servidor:',srvId)
+
         api.get(`pdfSrvContrato/${srvId}`).then(resp => {
             setServidores(resp.data);
             setNomServidor(resp.data.usrNome); 
@@ -245,12 +251,14 @@ function PdfCnvContrato() {
             setOrgEmissor(resp.data.usrOrgEmissor);
             setCpfServidor(resp.data.usrCpf); 
             setMatricula(resp.data.usrMatricula);
-            setCargo(resp.data.usrCargo);
+            setCargo(resp.data.crgDescricao);
             setLotacao(resp.data.usrTrabalho); 
             setEndereco(resp.data.usrEndereco);  
             setBairro(resp.data.usrBairro);  
             setCep(resp.data.usrCep);  
-            setTelefone(resp.data.usrCelular);  
+            setTelefone(resp.data.usrCelular);
+            setOrgAdmin(resp.data.orgDescricao);  
+            setTipUser(resp.data.usrTipContrato);  
         })
     },[]);
 
@@ -259,7 +267,7 @@ function PdfCnvContrato() {
             <MenBarra />
             <div className={classes.imprimir}>
                 <button className={classes.button} type="button" onClick={() => emitePdf()}>
-                    <PictureAsPdfIcon /> Abrir PDF
+                    <PictureAsPdfIcon /> Abrir Contrato PDF
                 </button>
             </div>             
         </div>

@@ -119,12 +119,12 @@ export default function Layout() {
   const menu = [
     { name: 'Orgão Admin.', to: '/orgadmin', icon: <PeopleIcon /> },  
     { name: 'Secretarias', to: '/secretarias', icon: <PeopleIcon /> },    
-    { name: 'Servidores', to: '/servidores', icon: <TheatersIcon /> },
+    { name: 'Cargos', to: '/cargos', icon: <TheatersIcon /> },
     { name: 'R.Atividades', to: '/atividades', icon: <AssignmentReturnedIcon /> },
     { name: 'Convênios', to: '/convenios', icon: <AssignmentReturnedIcon /> },
   ];
   const menUser = [
-    { name: 'Usuários', to: '/users', icon: <PeopleIcon /> },
+    { name: 'Servidores', to: '/servidores', icon: <PeopleIcon /> },
     { name: 'Administradores', to: '/admin', icon: <PeopleIcon /> },    
   ];
   const menAdmin = [

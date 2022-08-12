@@ -122,6 +122,7 @@ export default function AltServidores() {
 
   const [secretarias, setSecretarias] = useState([]);
   const [orgaos, setOrgaos] = useState([]);
+  const [cargos, setCargos] = useState([]);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -170,6 +171,11 @@ export default function AltServidores() {
       
     api.get(`orgaos`).then(res => {
       setOrgaos(res.data);
+      
+    })
+
+    api.get(`cargos`).then(respo => {
+      setCargos(respo.data);
       
     })
   },[]);
@@ -574,19 +580,19 @@ export default function AltServidores() {
               value={usrFonTrabalho} 
               onChange={(e) => {setUsrFonTrabalho(e.target.value)}} 
             />                     
-            <TextField 
-                className={classes.input}
+            <Select 
+                className={classes.select}
                 variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="cargo"
                 label="Cargo"
-                name="cargo"
-                autoFocus                
+                labelId="Cargo" 
+                id="cargo" 
                 value={usrCargo} 
-                onChange={(e) => {setUsrCargo(e.target.value)}} 
-            />
+                onChange={(e) => {setUsrCargo(e.target.value)}}                 
+            >
+              {cargos.map((row) => (
+                <MenuItem key={row.crgId} value={row.crgId}>{row.crgDescricao}</MenuItem>
+              ))}
+            </Select>
             <TextField 
                 className={classes.input}
                 variant="outlined"
