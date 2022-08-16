@@ -30,6 +30,10 @@ import Cargos from './pages/Cargos';
 import AltCargo from './pages/AltCargo';
 import NewCargo from './pages/NewCargo';
 
+import Bairros from './pages/Bairros';
+import AltBairro from './pages/AltBairro';
+import NewBairro from './pages/NewBairro';
+
 import Servidores from './pages/Servidores';
 import AltServidor from './pages/AltServidores';
 import NewServidor from './pages/NewServidor';
@@ -84,6 +88,10 @@ export default function MainRoutes() {
             <Route path="/cargos" element={<Cargos />} />
             <Route path="/altcargo/:crgId" element={<AltCargo />} />
             <Route path="/newcargo" element={<NewCargo />} />
+
+            <Route path="/bairros" element={<Bairros />} />
+            <Route path="/altbairro/:baiId" element={<AltBairro />} />
+            <Route path="/newbairro" element={<NewBairro />} />
 
             <Route path="/servidores" element={<Servidores />} />
             <Route path="/altservidor/:usrId" element={<AltServidor/>} />

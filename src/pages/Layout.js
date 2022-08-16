@@ -122,6 +122,7 @@ export default function Layout() {
     { name: 'Cargos', to: '/cargos', icon: <TheatersIcon /> },
     { name: 'R.Atividades', to: '/atividades', icon: <AssignmentReturnedIcon /> },
     { name: 'Convênios', to: '/convenios', icon: <AssignmentReturnedIcon /> },
+    { name: 'Bairros', to: '/bairros', icon: <AssignmentReturnedIcon /> },
   ];
   const menUser = [
     { name: 'Servidores', to: '/servidores', icon: <PeopleIcon /> },

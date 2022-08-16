@@ -363,40 +363,7 @@ export default function AltConvenio() {
           </div>
         </div>  
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        <div className={classes.left}>
-            <TextField 
-                className={classes.input}
-                type="password"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="password"
-                label="Senha do Convênio"
-                name="password"
-                autoFocus                
-                value={cnvPassword} 
-                onChange={(e) => {setPassword(e.target.value)}} 
-            />
-        </div>
-        <div className={classes.right}>
-            <TextField 
-                className={classes.input}
-                type="password"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="snhcancelamento"
-                label="Senha de Cancelamento"
-                name="snhcancelamento"
-                autoFocus                
-                value={cnvCanPassword} 
-                onChange={(e) => {setCanPassword(e.target.value)}} 
-            />
-        </div>           
-      </TabPanel>
+      <TabPanel value={value} index={2}></TabPanel>
       <TabPanel value={value} index={3}></TabPanel>
       <TabPanel value={value} index={4}></TabPanel>
       <TabPanel value={value} index={5}></TabPanel>

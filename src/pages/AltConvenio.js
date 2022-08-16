@@ -106,6 +106,8 @@ export default function AltConvenio() {
   const [cnvCidade, setCidade] = useState('');
   const [cnvEstado, setEstado] = useState('');
   const [cnvCep, setCep] = useState('');
+  //const [cnvPassword, setPassword] = useState('');
+  //const [cnvCanPassword, setCanPassword] = useState('');
 
   const [atividades, setAtividades] = useState([]);
 
@@ -125,7 +127,7 @@ export default function AltConvenio() {
       cnvBairro,
       cnvCidade,
       cnvEstado,
-      cnvCep      
+      cnvCep
       }).then(() => {
         alert('Convênio alterado com sucesso!')
       }).catch(() => {
