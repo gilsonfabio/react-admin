@@ -96,7 +96,7 @@ export default function Bairros() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cargos.map((row) => (
+          {bairros.map((row) => (
             <StyledTableRow key={row.crgId}>
               <StyledTableCell align="left" component="th" scope="row">{row.baiId}</StyledTableCell>
               <StyledTableCell align="left">{row.baiDescricao}</StyledTableCell>
