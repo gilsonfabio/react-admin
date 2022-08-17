@@ -255,7 +255,7 @@ function PdfCnvContrato() {
             setCargo(resp.data.crgDescricao);
             setLotacao(resp.data.usrTrabalho); 
             setEndereco(resp.data.usrEndereco);  
-            setBairro(resp.data.usrBairro);  
+            setBairro(resp.data.baiDescricao);  
             setCep(resp.data.usrCep);  
             setTelefone(resp.data.usrCelular);
             setOrgAdmin(resp.data.orgDescricao);  
