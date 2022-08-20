@@ -69,7 +69,7 @@ export default function Bairros() {
   function handleDelete(row) {
     let idBai = row.baiId;
 
-    api.put(`delcargo/${idBai}`).then(() => {
+    api.put(`delbairro/${idBai}`).then(() => {
         alert('Bairro deletado com sucesso!')
     }).catch(() => {
         alert('Erro na tentativa de deletar o bairro!');
@@ -101,7 +101,7 @@ export default function Bairros() {
               <StyledTableCell align="left" component="th" scope="row">{row.baiId}</StyledTableCell>
               <StyledTableCell align="left">{row.baiDescricao}</StyledTableCell>
               <StyledTableCell align="right">
-                <Link to={`/altcargo/${row.baiId}`} >
+                <Link to={`/altbairro/${row.baiId}`} >
                   <EditIcon />
                 </Link>                         
               </StyledTableCell>              

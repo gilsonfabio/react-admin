@@ -273,6 +273,7 @@ export default function AltServidores() {
               value={usrEmail} 
               onChange={(e) => {setUsrEmail(e.target.value)}} 
             />
+            <label>Nascimento: {usrNascimento}</label>
             <TextField 
               className={classes.input}
               type="date"
