@@ -11,6 +11,7 @@ import { TextField } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useNavigate, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 import api from '../services/api';
 
@@ -82,6 +83,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 8,
     width: 430,
   },
+  label: {
+    fontSize: 12,
+    marginTop: 16,
+    marginBottom: 8,
+    width: 430,
+  },
   
 }));
 
@@ -119,6 +126,8 @@ export default function AltServidores() {
   const [usrObsBloqueio, setUsrObsBloqueio] = useState('');
   const [usrCartao, setUsrCartao] = useState('');
   const [usrPassword, setUsrPassword] = useState('');
+
+  const [datNasc, setDatNasc] = useState('');
 
   const [secretarias, setSecretarias] = useState([]);
   const [orgaos, setOrgaos] = useState([]);
@@ -162,6 +171,8 @@ export default function AltServidores() {
         setUsrConjuge(response.data[0].usrConjuge);
         setUsrNasConjuge(response.data[0].usrNasConjuge);
         setUsrObsBloqueio(response.data[0].usrObsBloqueio);
+
+        setDatNasc(moment(response.data[0].usrNascimento).format('L'));
     })
      
     api.get(`secretarias`).then(resp => {
@@ -273,7 +284,7 @@ export default function AltServidores() {
               value={usrEmail} 
               onChange={(e) => {setUsrEmail(e.target.value)}} 
             />
-            <label>Nascimento: {usrNascimento}</label>
+            <label className={classes.label}>Nascimento: {usrNascimento}</label>
             <TextField 
               className={classes.input}
               type="date"
@@ -381,6 +392,7 @@ export default function AltServidores() {
                 value={usrEstCivil} 
                 onChange={(e) => {setUsrEstCivil(e.target.value)}} 
             />
+            <label className={classes.label}>Nasc.Conjuge: {usrNasConjuge}</label>
             <TextField 
                 className={classes.input}
                 type="date"
@@ -513,6 +525,7 @@ export default function AltServidores() {
               value={usrTrabalho} 
               onChange={(e) => {setUsrTrabalho(e.target.value)}} 
             />
+            <label className={classes.label}>Secretaria:</label>
             <Select 
                 className={classes.select}
                 variant="outlined"
@@ -526,6 +539,7 @@ export default function AltServidores() {
                 <MenuItem key={row.secId} value={row.secId}>{row.secDescricao}</MenuItem>
               ))}
             </Select>
+            <label className={classes.label}>Admissão:{usrAdmissao}</label>
             <TextField 
               className={classes.input}
               type="date"
@@ -580,7 +594,8 @@ export default function AltServidores() {
               autoFocus                
               value={usrFonTrabalho} 
               onChange={(e) => {setUsrFonTrabalho(e.target.value)}} 
-            />                     
+            />
+            <label className={classes.label}>Cargo:</label>                     
             <Select 
                 className={classes.select}
                 variant="outlined"
