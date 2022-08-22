@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { TextField } from '@material-ui/core';
+import React, {useState, useEffect} from 'react';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import api from '../services/api';
+import { TextField } from '@material-ui/core';
+import MenBarra from '../components/MenBarra/MenBarra';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,43 +28,50 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
     },
 }));
-
+ 
 export default function ForgotPassword() {
-  const classes = useStyles();  
-  const [email, setEmail] = useState('');
-  const navigate = useNavigate();
-
-  async function handleEmail(e){
-    e.preventDefault();
-    try {
-      await api.get(`envEmail/${email}`)
-      navigate(-1); 
-    } catch (err) {
-      alert('Falha no login! Tente novamente.', email);
-    }    
-  }
-       
-  return (
-    <div>
-    <main>
-      <form onSubmit={handleEmail}>
-        <h1>Informe seu email</h1>
+    const classes = useStyles();  
+    const [email, setEmail] = useState('');
+    const navigate = useNavigate();
+  
+    async function handleEmail(e){
+      e.preventDefault();
+      try {
+        await api.get(`envEmail/${email}`)
+        navigate(-1); 
+      } catch (err) {
+        alert('Falha no login! Tente novamente.', email);
+      }    
+    }
+     
+    return (  
         <div>
-          <TextField 
-            type="text" 
-            placeholder="Email" 
-            value={email} 
-            onChange={(e) => {setEmail(e.target.value)}}          
-          />
+            <MenBarra />
+            <main className={classes.main}>
+                <div className={classes.paper}> 
+                    <Typography variant="h6" noWrap>
+                        Informe seu email
+                    </Typography>         
+                    <form onSubmit={handleEmail} >            
+                        <TextField 
+                            className={classes.input}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Endereço de Email"
+                            name="email"
+                            autoFocus                
+                            value={email} 
+                            onChange={(e) => {setEmail(e.target.value)}} 
+                        />
+                        <Button variant="contained" color="primary" type="submit" className={classes.submit}>
+                            Solicitar
+                        </Button>
+                    </form>
+                </div>
+            </main>
         </div>
-        <div>
-            <Button variant="contained" color="primary" type="submit" className={classes.submit}>
-                Solicitar
-            </Button>
-        </div>
-      </form>
-    </main>
-    </div>
-  );
+    );
 }
-
