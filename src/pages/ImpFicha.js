@@ -8,6 +8,7 @@ import MenBarra from '../components/MenBarra/MenBarra';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 
 import api from '../services/api';
+import moment from 'moment';
 
 const useStyles = makeStyles({
     buttonArea: {
@@ -85,6 +86,7 @@ function ImpFicha() {
     const [usrSecretaria,  setUsrSecretaria] = useState('');
     const [usrNascimento,  setUsrNascimento] = useState('');
     const [usrTipCadastro,  setUsrTipCadastro] = useState('');
+    const [usrDatCadastro,  setUsrDatCadastro] = useState('');
     const [usrIdentidade,  setUsrIdentidade] = useState('');
     const [usrOrgEmissor,  setUsrOrgEmissor] = useState('');
     const [usrEstCivil,  setUsrEstCivil] = useState('');
@@ -105,6 +107,11 @@ function ImpFicha() {
     const [usrNasConjuge, setUsrNasConjuge] = useState('');
     const [usrObsBloqueio, setUsrObsBloqueio] = useState('');
 
+    const [desSecretaria, setDesSecretaria] = useState('');
+    const [desOrgao, setDesOrgao] = useState('');
+    const [desCargo, setDesCargo] = useState('');
+    const [desBairro, setDesBairro] = useState('');
+
     const [filhos, setFilhos] = useState([]);
 
     const [nomeUsr, setNomeUsr] = useState('');
@@ -112,6 +119,11 @@ function ImpFicha() {
     const [salarioUsr, setSalarioUsr] = useState('');
     const [cadastroUsr, setCadastroUsr] = useState('');
     const [cpfUsr, setCpfUsr] = useState('');
+
+    const [serNascimento, setSerNascimento] = useState('');
+    const [conNascimento, setConNascimento] = useState('');
+    const [cadEmissao ,setCadEmissao] = useState('');
+    const [admissao ,setAdmissao] = useState('');
 
     const soma = 0;
 
@@ -179,7 +191,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Data Cadastro:` , alignment: 'left', 
+                                text: `Data Cadastro: `, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -225,7 +237,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento:` ,alignment: 'left', 
+                                text: `Nascimento: ${usrNascimento}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -296,7 +308,7 @@ function ImpFicha() {
                     body: [
                         [
                             { 
-                                text: `Bairro: ${usrBairro}`,
+                                text: `Bairro: ${desBairro}`,
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true,                                
@@ -388,14 +400,14 @@ function ImpFicha() {
                     body: [
                         [
                             { 
-                                text: `Orgão Administrativo: `,
+                                text: `Orgão Administrativo: ${desOrgao}`,
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true,                                
                             },
                                                           
                             { 
-                                text: `Secretaria:`, 
+                                text: `Secretaria: ${desSecretaria}`, 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -411,7 +423,7 @@ function ImpFicha() {
                     body: [
                         [
                             { 
-                                text: `Cargo: ${usrCargo}`,
+                                text: `Cargo: ${desCargo}`,
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true,                                
@@ -429,8 +441,8 @@ function ImpFicha() {
             },            
             { 
                 table: {
-                    widths: ['100%'],
-                    heights: [20],                    
+                    widths: ['50%', '50%'],
+                    heights: [20,20],                    
                     body: [
                         [
                             { 
@@ -439,6 +451,12 @@ function ImpFicha() {
                                 fontSize: 9,
                                 bold: true,                                
                             },
+                            { 
+                                text: `Data Admissão: ${usrAdmissao}`, 
+                                border:[true, false, true, true],
+                                fontSize: 9,
+                                bold: true
+                            }
                         ],
                     ],
                 }
@@ -704,6 +722,7 @@ function ImpFicha() {
             setUsrSecretaria(response.data[0].usrSecretaria);
             setUsrNascimento(response.data[0].usrNascimento);
             setUsrTipCadastro(response.data[0].usrTipCadastro);
+            setUsrDatCadastro(response.data[0].usrDatCadastro);
             setUsrIdentidade(response.data[0].usrIdentidade);
             setUsrOrgEmissor(response.data[0].usrOrgEmissor);
             setUsrEstCivil(response.data[0].usrEstCivil);
@@ -723,14 +742,24 @@ function ImpFicha() {
             setUsrConjuge(response.data[0].usrConjuge);
             setUsrNasConjuge(response.data[0].usrNasConjuge);
             setUsrObsBloqueio(response.data[0].usrObsBloqueio);
+                         
+            setDesSecretaria(response.data[0].secDescricao);
+            setDesOrgao(response.data[0].orgDescricao);
+            setDesCargo(response.data[0].crgDescricao);
+            setDesBairro(response.data[0].baiDescricao);
+             
+            //setSerNascimento(moment(usrNascimento).format('DD-MM-YYYY'));
+            //setConNascimento(moment(response.data[0].usrNasConjuge).format('L'));
+            //setCadEmissao(moment(response.data[0].usrDatCadastro).format('L'));
+            //setAdmissao(moment(response.data[0].usrAdmissao).format('L'));
+
         })
         
         api.get(`filiacao/${idUsr}`).then(response => {
             setFilhos(response.data);
             
         })
-
-
+        
     },[]);
        
     function emitePdf() { 
