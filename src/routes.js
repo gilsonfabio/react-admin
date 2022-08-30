@@ -54,6 +54,7 @@ import PdfExtConv from './pages/PdfExtConv';
 import StaCartao from './pages/StaCartao';
 import ImpFicha from './pages/ImpFicha';
 import PdfCnvContrato from './pages/PdfCnvContrato';
+import DelUser from './pages/DelServidor';
 
 export default function MainRoutes() {
     return(
@@ -68,6 +69,7 @@ export default function MainRoutes() {
             <Route path="/admin" element={<Admin />} />   
             <Route path="/newadmin" element={<NewAdmin />} />
             <Route path="/altadmin" element={<AltAdmin />} />
+            <Route path="/delServidor/:usrId" element={<DelUser/>} />
 
             <Route path="/secretarias" element={<Secretarias />} />
             <Route path="/altsecretaria/:secId" element={<AltSecretaria />} />

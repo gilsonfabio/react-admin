@@ -200,8 +200,10 @@ export default function Servidores() {
               </Link>                          
               </StyledTableCell>
               <StyledTableCell align="right">
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
+              <IconButton aria-label="delete">
+              <Link to={`/delServidor/${row.usrId}`} >
+                <DeleteIcon />
+              </Link>
                 </IconButton>
               </StyledTableCell>
             </StyledTableRow>
