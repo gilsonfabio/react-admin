@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -68,6 +68,7 @@ const useStyles = makeStyles({
 });
 
 function DelServidor() {
+    const navigate = useNavigate();
     const params = useParams(); 
     const classes = useStyles();
         
