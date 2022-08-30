@@ -72,8 +72,6 @@ function DelServidor() {
     const classes = useStyles();
         
     function deletaUsr() {
-        e.preventDefault();
-    
         let idSrv = params.usrId;
         api.put(`deletaUsr/${idSrv}`, {
 
