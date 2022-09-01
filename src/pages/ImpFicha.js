@@ -106,6 +106,8 @@ function ImpFicha() {
     const [usrConjuge, setUsrConjuge] = useState('');
     const [usrNasConjuge, setUsrNasConjuge] = useState('');
     const [usrObsBloqueio, setUsrObsBloqueio] = useState('');
+    const [usrPai, setUsrPai] = useState('');
+    const [usrMae, setUsrMae] = useState('');
 
     const [desSecretaria, setDesSecretaria] = useState('');
     const [desOrgao, setDesOrgao] = useState('');
@@ -749,6 +751,8 @@ function ImpFicha() {
             setUsrConjuge(response.data[0].usrConjuge);
             setUsrNasConjuge(response.data[0].usrNasConjuge);
             setUsrObsBloqueio(response.data[0].usrObsBloqueio);
+            setUsrPai(response.data[0].usrPai);
+            setUsrMae(response.data[0].usrMae);
                          
             setDesSecretaria(response.data[0].secDescricao);
             setDesOrgao(response.data[0].orgDescricao);
