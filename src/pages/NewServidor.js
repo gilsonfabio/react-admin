@@ -119,6 +119,8 @@ export default function NewServidor() {
   const [usrCartao,  setUsrCartao] = useState('');
   const [usrConjuge,  setUsrConjuge] = useState('');
   const [usrNasConjuge,  setUsrNasConjuge] = useState('');
+  const [usrPai, setUsrPai] = useState('');
+  const [usrMae, setUsrMae] = useState('');
 
   const [secretarias, setSecretarias] = useState([]);
   const [orgaos, setOrgaos] = useState([]);
@@ -192,6 +194,8 @@ export default function NewServidor() {
       usrCargo,
       usrConjuge,
       usrNasConjuge,
+      usrPai,
+      usrMae,
     }).then(() => {
         alert('Servidor(a) cadastrado com sucesso!')
     }).catch(() => {
@@ -305,6 +309,19 @@ export default function NewServidor() {
                 value={usrConjuge} 
                 onChange={(e) => {setUsrConjuge(e.target.value)}} 
             />
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="pai"
+                label="Pai"
+                name="pai"
+                autoFocus                
+                value={usrPai} 
+                onChange={(e) => {setUsrPai(e.target.value)}} 
+            />
           </div>
           <div className={classes.right}>
             <TextField 
@@ -372,6 +389,19 @@ export default function NewServidor() {
                 autoFocus                
                 value={usrNasConjuge} 
                 onChange={(e) => {setUsrNasConjuge(e.target.value)}} 
+            />
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="mae"
+                label="Mãe"
+                name="mae"
+                autoFocus                
+                value={usrMae} 
+                onChange={(e) => {setUsrMae(e.target.value)}} 
             />
           </div>
         </div>  

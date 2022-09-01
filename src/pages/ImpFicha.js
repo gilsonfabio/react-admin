@@ -271,16 +271,23 @@ function ImpFicha() {
             },
             { 
                 table: {
-                    widths: ['100%'],
-                    heights: [20],                    
+                    widths: ['50%', '50%'],
+                    heights: [20,20],                    
                     body: [
                         [
                             { 
-                                text: `Filiação:`,
+                                text: `Pai: ${usrPai}`,
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true,                                
                             },
+                                                          
+                            { 
+                                text: `Mãe: ${usrMae}`, alignment: 'left', 
+                                border:[true, false, true, true],
+                                fontSize: 9,
+                                bold: true
+                            }
                         ],
                     ],
                 }

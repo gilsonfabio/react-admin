@@ -126,6 +126,8 @@ export default function AltServidores() {
   const [usrObsBloqueio, setUsrObsBloqueio] = useState('');
   const [usrCartao, setUsrCartao] = useState('');
   const [usrPassword, setUsrPassword] = useState('');
+  const [usrPai, setUsrPai] = useState('');
+  const [usrMae, setUsrMae] = useState('');
 
   const [datNasc, setDatNasc] = useState('');
 
@@ -171,6 +173,8 @@ export default function AltServidores() {
         setUsrConjuge(response.data[0].usrConjuge);
         setUsrNasConjuge(response.data[0].usrNasConjuge);
         setUsrObsBloqueio(response.data[0].usrObsBloqueio);
+        setUsrPai(response.data[0].usrPai);
+        setUsrMae(response.data[0].usrMae);
 
         setDatNasc(moment(response.data[0].usrNascimento).format('L'));
     })
@@ -224,6 +228,8 @@ export default function AltServidores() {
       usrConjuge,
       usrNasConjuge,
       usrObsBloqueio,
+      usrPai,
+      usrMae,
     }).then(() => {
         alert('Servidor alterado com sucesso!')
     }).catch(() => {
@@ -338,6 +344,19 @@ export default function AltServidores() {
                 value={usrConjuge} 
                 onChange={(e) => {setUsrConjuge(e.target.value)}} 
             />
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="pai"
+                label="Pai"
+                name="pai"
+                autoFocus                
+                value={usrPai} 
+                onChange={(e) => {setUsrPai(e.target.value)}} 
+            />
           </div>
           <div className={classes.right}>
             <TextField 
@@ -406,6 +425,20 @@ export default function AltServidores() {
                 autoFocus                
                 value={usrNasConjuge} 
                 onChange={(e) => {setUsrNasConjuge(e.target.value)}} 
+            />
+            <TextField 
+                className={classes.input}
+                type="date"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="mae"
+                label="Mãe"
+                name="mae"
+                autoFocus                
+                value={usrMae} 
+                onChange={(e) => {setUsrMae(e.target.value)}} 
             />
           </div>
         </div>  
