@@ -256,7 +256,7 @@ export default function AltServidores() {
         <Tab label="Endereço" {...a11yProps(1)} />
         <Tab label="Trabalho" {...a11yProps(2)} />
         <Tab label="Operacional" {...a11yProps(3)} />
-        <Tab label="        " {...a11yProps(4)} />
+        <Tab label="Filiação" {...a11yProps(4)} />
         <Tab label="        " {...a11yProps(5)} />
         <Tab label="        " {...a11yProps(6)} />
       </Tabs>
@@ -343,20 +343,7 @@ export default function AltServidores() {
                 autoFocus                
                 value={usrConjuge} 
                 onChange={(e) => {setUsrConjuge(e.target.value)}} 
-            />
-            <TextField 
-                className={classes.input}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="pai"
-                label="Pai"
-                name="pai"
-                autoFocus                
-                value={usrPai} 
-                onChange={(e) => {setUsrPai(e.target.value)}} 
-            />
+            />            
           </div>
           <div className={classes.right}>
             <TextField 
@@ -425,21 +412,7 @@ export default function AltServidores() {
                 autoFocus                
                 value={usrNasConjuge} 
                 onChange={(e) => {setUsrNasConjuge(e.target.value)}} 
-            />
-            <TextField 
-                className={classes.input}
-                type="date"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="mae"
-                label="Mãe"
-                name="mae"
-                autoFocus                
-                value={usrMae} 
-                onChange={(e) => {setUsrMae(e.target.value)}} 
-            />
+            />            
           </div>
         </div>  
       </TabPanel>
@@ -721,7 +694,40 @@ export default function AltServidores() {
           </div>
         </div>
       </TabPanel>
-      <TabPanel value={value} index={4}></TabPanel>
+      <TabPanel value={value} index={4}>
+        <div className={classes.dados}>
+          <div className={classes.left}>
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="pai"
+                label="Pai"
+                name="pai"
+                autoFocus                
+                value={usrPai} 
+                onChange={(e) => {setUsrPai(e.target.value)}} 
+            />
+          </div>
+          <div className={classes.right}>
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="mae"
+                label="Mãe"
+                name="mae"
+                autoFocus                
+                value={usrMae} 
+                onChange={(e) => {setUsrMae(e.target.value)}} 
+            />
+          </div>
+        </div>    
+      </TabPanel>
       <TabPanel value={value} index={5}></TabPanel>
       <TabPanel value={value} index={6}></TabPanel>
         <div>
