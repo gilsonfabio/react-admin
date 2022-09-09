@@ -100,6 +100,7 @@ function ImpFicha() {
     const [usrAdmissao,  setUsrAdmissao] = useState('');
     const [usrSalLiquido,  setUsrSalLiquido] = useState('');
     const [usrSalBruto,  setUsrSalBruto] = useState('');
+    const [usrLimite,  setUsrLimite] = useState('');
     const [usrTipContrato,  setUsrTipContrato] = useState('');
     const [usrFonTrabalho,  setUsrFonTrabalho] = useState('');
     const [usrCargo, setUsrCargo] = useState('');
@@ -472,8 +473,8 @@ function ImpFicha() {
             },
             { 
                 table: {
-                    widths: ['35%', '35%', '30%'],
-                    heights: [20,20,20],                    
+                    widths: ['25%', '25%', '25%', '25%'],
+                    heights: [20,20,20,20],                    
                     body: [
                         [
                             { 
@@ -490,6 +491,12 @@ function ImpFicha() {
                             },
                             { 
                                 text: `Salario Liquido:`+ Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(usrSalLiquido) ,alignment: 'left', 
+                                border:[true, false, true, true],
+                                fontSize: 9,
+                                bold: true
+                            },
+                            { 
+                                text: `Limite Crédito:`+ Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(usrLimite) ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -759,11 +766,13 @@ function ImpFicha() {
             setDesCargo(response.data[0].crgDescricao);
             setDesBairro(response.data[0].baiDescricao);
              
+            let lmtCredito = ((response.data[0].usrSalLiquido * 30) / 100);
+            setUsrLimite(lmtCredito);
+            
             //setSerNascimento(moment(usrNascimento).format('DD-MM-YYYY'));
             //setConNascimento(moment(response.data[0].usrNasConjuge).format('L'));
             //setCadEmissao(moment(response.data[0].usrDatCadastro).format('L'));
             //setAdmissao(moment(response.data[0].usrAdmissao).format('L'));
-
         })
         
         api.get(`filiacao/${idUsr}`).then(response => {

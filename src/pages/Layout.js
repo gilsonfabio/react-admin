@@ -125,6 +125,7 @@ export default function Layout() {
     { name: 'Bairros', to: '/bairros', icon: <AssignmentReturnedIcon /> },
   ];
   const menUser = [
+    { name: 'Tipos Contrato', to: '/tipos', icon: <PeopleIcon /> },
     { name: 'Servidores', to: '/servidores', icon: <PeopleIcon /> },
     { name: 'Administradores', to: '/admin', icon: <PeopleIcon /> },    
   ];
