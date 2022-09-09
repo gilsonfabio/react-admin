@@ -67,7 +67,7 @@ export default function Tipos() {
   },[]);
 
   function handleDelete(row) {
-    let idSec = row.movId;
+    let idTip = row.idTip;
 
     api.put(`deltipo/${idTip}`).then(() => {
         alert('Tipo deletado com sucesso!')
