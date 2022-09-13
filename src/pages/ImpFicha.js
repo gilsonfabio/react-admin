@@ -114,6 +114,7 @@ function ImpFicha() {
     const [desOrgao, setDesOrgao] = useState('');
     const [desCargo, setDesCargo] = useState('');
     const [desBairro, setDesBairro] = useState('');
+    const [tipDescricao, setTipDescricao] = useState('');
 
     const [filhos, setFilhos] = useState([]);
 
@@ -251,8 +252,8 @@ function ImpFicha() {
             },
             { 
                 table: {
-                    widths: ['20%', '80%'],
-                    heights: [20,20],                    
+                    widths: ['20%', '50%', '30%'],
+                    heights: [20,20,20],                    
                     body: [
                         [
                             { 
@@ -264,6 +265,13 @@ function ImpFicha() {
                                                           
                             { 
                                 text: `Conjuge: ${usrConjuge}`, alignment: 'left', 
+                                border:[true, false, true, true],
+                                fontSize: 9,
+                                bold: true
+                            },
+
+                            { 
+                                text: `Nasc Conjuge: ${usrNasConjuge}`, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -387,7 +395,7 @@ function ImpFicha() {
                     body: [
                         [
                             { 
-                                text: `Tipo de Contrato: ${usrTipContrato}`,
+                                text: `Tipo de Contrato: ${usrTipContrato} - ${tipDescricao}`,
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true,                                
@@ -765,6 +773,7 @@ function ImpFicha() {
             setDesOrgao(response.data[0].orgDescricao);
             setDesCargo(response.data[0].crgDescricao);
             setDesBairro(response.data[0].baiDescricao);
+            setTipDescricao(response.data[0].tipDescricao);
              
             let lmtCredito = ((response.data[0].usrSalLiquido * 30) / 100);
             setUsrLimite(lmtCredito);

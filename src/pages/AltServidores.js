@@ -134,6 +134,7 @@ export default function AltServidores() {
   const [secretarias, setSecretarias] = useState([]);
   const [orgaos, setOrgaos] = useState([]);
   const [cargos, setCargos] = useState([]);
+  const [tipos, setTipos] = useState([]);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -191,6 +192,11 @@ export default function AltServidores() {
 
     api.get(`cargos`).then(respo => {
       setCargos(respo.data);
+      
+    })
+
+    api.get(`tipos`).then(respon => {
+      setTipos(respon.data);
       
     })
   },[]);
@@ -575,19 +581,20 @@ export default function AltServidores() {
             />
           </div>
           <div className={classes.right}>
-            <TextField 
-                className={classes.input}
+          <label className={classes.label}>Tipo Contrato:</label>
+            <Select 
+                className={classes.select}
                 variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="tipContrato"
-                label="Tipo de Contrato"
-                name="tipContrato"
-                autoFocus                
+                label="Tipo Contrato"
+                labelId="tipContrato" 
+                id="tipContrato" 
                 value={usrTipContrato} 
-                onChange={(e) => {setUsrTipContrato(e.target.value)}} 
-            />
+                onChange={(e) => {setUsrTipContrato(e.target.value)}}                 
+            >
+              {tipos.map((row) => (
+                <MenuItem key={row.idTip} value={row.idTip}>{row.tipDescricao}</MenuItem>
+              ))}
+            </Select>
             <TextField 
               className={classes.input}
               variant="outlined"

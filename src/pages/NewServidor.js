@@ -126,6 +126,7 @@ export default function NewServidor() {
   const [orgaos, setOrgaos] = useState([]);
   const [parametros, setParametros] = useState([]);
   const [seqcartao, setSeqCartao] = useState('');
+  const [tipos, setTipos] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -141,6 +142,10 @@ export default function NewServidor() {
     })
     api.get(`orgaos`).then(res => {
       setOrgaos(res.data);
+      
+    })
+    api.get(`tipos`).then(resTip => {
+      setTipos(resTip.data);
       
     })
     
@@ -537,19 +542,19 @@ export default function NewServidor() {
             />
           </div>
           <div className={classes.right}>
-            <TextField 
-                className={classes.input}
+            <Select 
+                className={classes.select}
                 variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="tipContrato"
-                label="Tipo de Contrato"
-                name="tipContrato"
-                autoFocus                
+                label="Tipo Contrato"
+                labelId="tipContrato" 
+                id="tipContrato" 
                 value={usrTipContrato} 
-                onChange={(e) => {setUsrTipContrato(e.target.value)}} 
-            />
+                onChange={(e) => {setUsrTipContrato(e.target.value)}}                 
+            >
+              {tipos.map((row) => (
+                <MenuItem key={row.idTip} value={row.idTip}>{row.tipDescricao}</MenuItem>
+              ))}
+            </Select>    
             <TextField 
               className={classes.input}
               variant="outlined"
