@@ -135,6 +135,7 @@ export default function AltServidores() {
   const [orgaos, setOrgaos] = useState([]);
   const [cargos, setCargos] = useState([]);
   const [tipos, setTipos] = useState([]);
+  const [bairros, setBairros] = useState([]);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -192,6 +193,11 @@ export default function AltServidores() {
 
     api.get(`cargos`).then(respo => {
       setCargos(respo.data);
+      
+    })
+
+    api.get(`bairros`).then(resbai => {
+      setBairros(resbai.data);
       
     })
 
@@ -466,19 +472,20 @@ export default function AltServidores() {
             />
           </div>
           <div className={classes.right}>
-          <TextField 
-              className={classes.input}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="bairro"
-              label="Bairro"
-              name="bairro"
-              autoFocus                
-              value={usrBairro} 
-              onChange={(e) => {setUsrBairro(e.target.value)}} 
-            />
+            <label className={classes.label}>Bairro:</label>                     
+            <Select 
+                className={classes.select}
+                variant="outlined"
+                label="Bairro"
+                labelId="Bairro" 
+                id="bairro" 
+                value={usrBairro} 
+                onChange={(e) => {setUsrBairro(e.target.value)}}                 
+            >
+              {bairros.map((row) => (
+                <MenuItem key={row.baiId} value={row.baiId}>{row.baiDescricao}</MenuItem>
+              ))}
+            </Select>            
             <TextField 
               className={classes.input}
               variant="outlined"
