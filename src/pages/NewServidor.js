@@ -127,7 +127,8 @@ export default function NewServidor() {
   const [parametros, setParametros] = useState([]);
   const [seqcartao, setSeqCartao] = useState('');
   const [tipos, setTipos] = useState([]);
-
+  const [cargos, setCargos] = useState([]);
+  const [bairros, setBairros] = useState([]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -146,6 +147,16 @@ export default function NewServidor() {
     })
     api.get(`tipos`).then(resTip => {
       setTipos(resTip.data);
+      
+    })
+
+    api.get(`cargos`).then(respo => {
+      setCargos(respo.data);
+      
+    })
+
+    api.get(`bairros`).then(resbai => {
+      setBairros(resbai.data);
       
     })
     
@@ -388,6 +399,7 @@ export default function NewServidor() {
       <TabPanel value={value} index={1}>
         <div className={classes.dados}>
           <div className={classes.left}>
+          <label className={classes.label}>Endereço:</label>  
             <TextField 
               className={classes.input}
               variant="outlined"
@@ -429,19 +441,20 @@ export default function NewServidor() {
             />
           </div>
           <div className={classes.right}>
-          <TextField 
-              className={classes.input}
+            <label className={classes.label}>Bairro:</label>                     
+            <Select 
+              className={classes.select}
               variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="bairro"
               label="Bairro"
-              name="bairro"
-              autoFocus                
+              labelId="Bairro" 
+              id="bairro" 
               value={usrBairro} 
-              onChange={(e) => {setUsrBairro(e.target.value)}} 
-            />
+              onChange={(e) => {setUsrBairro(e.target.value)}}                 
+            >
+              {bairros.map((row) => (
+                <MenuItem key={row.baiId} value={row.baiId}>{row.baiDescricao}</MenuItem>
+              ))}
+            </Select>   
             <TextField 
               className={classes.input}
               variant="outlined"
@@ -474,6 +487,7 @@ export default function NewServidor() {
       <TabPanel value={value} index={2}>
       <div className={classes.dados}>
           <div className={classes.left}>
+            <label className={classes.label}>Matricula:</label>  
             <TextField 
               className={classes.input}
               variant="outlined"
@@ -500,6 +514,7 @@ export default function NewServidor() {
               value={usrTrabalho} 
               onChange={(e) => {setUsrTrabalho(e.target.value)}} 
             />
+            <label className={classes.label}>Secretaria:</label>  
             <Select 
                 className={classes.select}
                 variant="outlined"
@@ -542,6 +557,7 @@ export default function NewServidor() {
             />
           </div>
           <div className={classes.right}>
+          <label className={classes.label}>Tipo de Contrato:</label>  
             <Select 
                 className={classes.select}
                 variant="outlined"
@@ -568,19 +584,20 @@ export default function NewServidor() {
               value={usrFonTrabalho} 
               onChange={(e) => {setUsrFonTrabalho(e.target.value)}} 
             />                     
-            <TextField 
-                className={classes.input}
+            <label className={classes.label}>Cargo:</label>                     
+            <Select 
+                className={classes.select}
                 variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="cargo"
                 label="Cargo"
-                name="cargo"
-                autoFocus                
+                labelId="Cargo" 
+                id="cargo" 
                 value={usrCargo} 
-                onChange={(e) => {setUsrCargo(e.target.value)}} 
-            />
+                onChange={(e) => {setUsrCargo(e.target.value)}}                 
+            >
+              {cargos.map((row) => (
+                <MenuItem key={row.crgId} value={row.crgId}>{row.crgDescricao}</MenuItem>
+              ))}
+            </Select>
             <TextField 
                 className={classes.input}
                 variant="outlined"

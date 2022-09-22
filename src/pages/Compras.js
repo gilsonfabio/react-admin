@@ -16,6 +16,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import MenBarra from '../components/MenBarra/MenBarra';
 import { TextField } from '@material-ui/core';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -61,8 +63,14 @@ const useStyles = makeStyles({
     width: 300,
   },
 
+  select: {
+    marginTop: 16,
+    marginBottom: 8,
+    width: 430,
+  },
+
   totaliza: {
-    width: 350,
+    width: 300,
     fontSize: 12,
   },
 });
@@ -72,6 +80,8 @@ export default function Compras() {
   const [compras, setCompras] = useState([]);
   const [datVencto, setDatVencto] = useState(['']);
   const [total, setTotal] = useState([]);
+  const [orgaos, setOrgaos] = useState([]);
+  const [orgao, setOrgao] = useState('');
 
   useEffect(() => {
 
@@ -108,48 +118,83 @@ export default function Compras() {
       setTotal(resp.data);
     })
 
-  },[]);
-
-  useEffect(() => {
-    api.get(`findCompras/${datVencto}`).then(response => {
-        setCompras(response.data);
-        
+    api.get(`orgaos`).then(res => {
+      setOrgaos(res.data);
     })
 
-    api.get(`totCompras/${datVencto}`).then(resp => {
-      setTotal(resp.data);
-    })  
-       
-  },[datVencto]);
+  },[]);
+
+  //useEffect(() => {
+  //  api.get(`findCompras/${datVencto}`).then(response => {
+  //      setCompras(response.data);
+  //      
+  //  })
+  //  api.get(`totCompras/${datVencto}`).then(resp => {
+  //    setTotal(resp.data);
+  //  })  
+  //     
+  //},[datVencto]);
+
+  useEffect(() => {
+    if (orgao !== '' ) {
+      api.get(`findCmpOrgao/${datVencto}/${orgao}`).then(response => {
+          setCompras(response.data);        
+      })
+      api.get(`totCmpOrgao/${datVencto}/${orgao}`).then(resp => {
+        setTotal(resp.data);
+      })
+    }else {
+      api.get(`findCompras/${datVencto}`).then(response => {
+        setCompras(response.data);        
+      })
+      api.get(`totCompras/${datVencto}`).then(resp => {
+        setTotal(resp.data);
+      })
+    }        
+  },[datVencto,orgao]);
   
   return (
     <div>
       <MenBarra />
       <div className={classes.cadastrar}>      
-      <TextField 
-        className={classes.input}
-        variant="outlined"
-        margin="normal"
-        id="datVencto"
-        label="Dt. Vencimento"
-        name="datVencto"
-        autoFocus                
-        value={datVencto} 
-        onChange={(e) => {setDatVencto(e.target.value)}} 
-      />
-      <div className={classes.cadastrar}>
-        <Button variant="contained" color="primary">
-          <Link to={`/pdfCmpVenc/${datVencto}`} className={classes.link}>Imprime PDF</Link>        
-        </Button>
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="datVencto"
+          label="Dt. Vencimento"
+          name="datVencto"
+          autoFocus                
+          value={datVencto} 
+          onChange={(e) => {setDatVencto(e.target.value)}} 
+        />
+        <Select 
+          className={classes.select}
+          variant="outlined"
+          label="Orgão Admin"
+          labelId="orgAdmin" 
+          id="orgAdmin" 
+          value={orgao} 
+          onChange={(e) => {setOrgao(e.target.value)}}                 
+        >
+          {orgaos.map((row) => (
+            <MenuItem key={row.orgId} value={row.orgId}>{row.orgDescricao}</MenuItem>
+          ))}
+        </Select>   
+
+        <div className={classes.cadastrar}>
+          <Button variant="contained" color="primary">
+            <Link to={`/pdfCmpVenc/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
+          </Button>
+        </div>
+        <div className={classes.totaliza}>
+          {total.map((cmp) => (
+            <h2 key={cmp.totCmp}>              
+              <p>TOTAL DAS COMPRAS:{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(cmp.totCmp)}</p>
+            </h2>
+          ))}
+        </div>
       </div>
-      <div className={classes.totaliza}>
-        {total.map((cmp) => (
-          <h1 key={cmp.totCmp}>              
-            <p>TOTAL DAS COMPRAS:{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(cmp.totCmp)}</p>
-          </h1>
-        ))}
-      </div>
-    </div>
       <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -172,7 +217,7 @@ export default function Compras() {
               <StyledTableCell align="left">{row.parNroParcela}</StyledTableCell>
               <StyledTableCell align="left">{row.cmpEmissao}</StyledTableCell>
               <StyledTableCell align="left">{row.parVctParcela}</StyledTableCell>
-              <StyledTableCell align="left">{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(row.parVlrParcela)}</StyledTableCell>
+              <StyledTableCell align="left">{Intl.NumberFormat('en-US', {style: 'currency', currency: 'BRL'}).format(row.parVlrParcela)}</StyledTableCell>
               <StyledTableCell align="left">{row.cmpConvenio}</StyledTableCell>
               <StyledTableCell align="left">{row.usrNome}</StyledTableCell>
               <StyledTableCell align="right">

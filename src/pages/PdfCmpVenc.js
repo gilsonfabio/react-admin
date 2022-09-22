@@ -6,6 +6,7 @@ import moment from 'moment';
 import { useParams } from 'react-router-dom';
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 
 import api from '../services/api';
 
@@ -143,9 +144,17 @@ function PdfCmpVenc() {
     useEffect(() => {
         let dataInicial = params.datVencto;
         let dataFinal = params.datVencto;
-        api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}`).then(resp => {
-            setVendas(resp.data);  
-        })        
+        let orgId = params.orgao;
+
+        if (orgId !== '') {
+            api.get(`pdfVctOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
+                setVendas(resp.data);  
+            })
+        }else {
+            api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}`).then(resp => {
+                setVendas(resp.data);  
+            })
+        }            
 
     },[]);
 
@@ -157,7 +166,7 @@ function PdfCmpVenc() {
     return (
         <>
             <button className={classes.button} type="button" onClick={() => emitePdf()}>
-                <DeleteIcon />
+                <PictureAsPdfIcon />
             </button> 
             
         </>
