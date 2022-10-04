@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 
 });
 
-function PdfCmpVenc() {
+function PdfCmpEmis() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
 
@@ -77,7 +77,7 @@ function PdfCmpVenc() {
     
     const reportTitle = [
         {
-            text: `Relatório de Vendas Vencimento`,
+            text: `Relatório de Vendas Emissão`,
             fontSize: 15,
             bold: true,
             margin: [15, 20, 0, 45],
@@ -86,17 +86,17 @@ function PdfCmpVenc() {
 
     const dados = vendas.map((venda) => {
         return [
-            {text: venda.parIdCompra, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: venda.parNroParcela, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.cmpId, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.cmpQtdParcela, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.cnvNomFantasia, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao + 1).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(venda.parVctParcela + 1).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.parVlrParcela), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
+            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.cmpCodSeguranca, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.cmpVlrCompra), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
 
-    const totCompras = vendas.map(item => item.parVlrParcela).reduce((prev, curr) => prev + curr, 0);
+    const totCompras = vendas.map(item => item.cmpVlrCompra).reduce((prev, curr) => prev + curr, 0);
 
     const details = [
         {
@@ -106,11 +106,11 @@ function PdfCmpVenc() {
                 body: [
                     [
                         {text: 'ID', style: 'tableHeader', fontSize: 8},
-                        {text: 'PARC', style: 'tableHeader', fontSize: 8},
+                        {text: 'QTD.PARC', style: 'tableHeader', fontSize: 8},
                         {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 8},  
                         {text: 'CONVENIO', style: 'tableHeader', fontSize: 8},
                         {text: 'EMISSÃO', style: 'tableHeader', fontSize: 8},
-                        {text: 'VENCIMENTO', style: 'tableHeader', fontSize: 8},                                                                      
+                        {text: 'C.SEGURANÇA', style: 'tableHeader', fontSize: 8},                                                                      
                         {text: 'VLR. DA COMPRA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
                     ],
                     ...dados,
@@ -142,25 +142,19 @@ function PdfCmpVenc() {
     };
    
     useEffect(() => {
-        let dataInicial = params.datVencto;
-        let dataFinal = params.datVencto;
-        let orgId = params.orgao;
-        if (orgId !== '') {
-           orgId = '999';
-        }
+        let dataInicio = params.datInicio;
+        let dataFinal = params.datFinal;
+        let cnpjCnv = params.convenio;
+        let cpfSrv = params.servidor;
+        
+        console.log('data incial:', dataInicio);
+        console.log('data incial:', dataFinal);
+        console.log('convenio:', cnpjCnv);
+        console.log('servidor:', cpfSrv);
 
-        if (orgId !== '999') {
-            console.log('1')
-            api.get(`pdfEmiOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
-                setVendas(resp.data);  
-            })
-        }else {
-            console.log('2')
-            api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}`).then(resp => {
-                setVendas(resp.data);  
-            })
-        }            
-
+        api.get(`pdfCmpEmis/${dataInicio}/${dataFinal}/${cnpjCnv}/${cpfSrv}`).then(resp => {
+           setVendas(resp.data);  
+        })
     },[]);
 
     function emitePdf() {
@@ -178,4 +172,4 @@ function PdfCmpVenc() {
     );
 }
 
-export default PdfCmpVenc;
+export default PdfCmpEmis;

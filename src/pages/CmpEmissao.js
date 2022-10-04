@@ -49,9 +49,6 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     marginTop: 40,
     padding: 10,
-    hover: {
-      cursor: 'pointer',
-    }
   },
 
   btnCadastrar: {
@@ -78,13 +75,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Compras() {
+export default function CmpEmissao() {
   const classes = useStyles();
   const [compras, setCompras] = useState([]);
-  const [datVencto, setDatVencto] = useState(['']);
+  const [datEmissao, setDatEmissao] = useState(['']);
   const [total, setTotal] = useState([]);
   const [orgaos, setOrgaos] = useState([]);
-  const [orgao, setOrgao] = useState(0);
+  const [orgao, setOrgao] = useState('');
 
   useEffect(() => {
 
@@ -112,12 +109,12 @@ export default function Compras() {
     //    setCompras(response.data);        
     //})
        
-    api.get(`findCompras/${datVencto}`).then(response => {
+    api.get(`findCmpEmi/${datEmissao}`).then(response => {
       setCompras(response.data);
       
     })
 
-    api.get(`totCompras/${datVencto}`).then(resp => {
+    api.get(`totCmpEmi/${datEmissao}`).then(resp => {
       setTotal(resp.data);
     })
 
@@ -139,18 +136,18 @@ export default function Compras() {
   //},[datVencto]);
 
   useEffect(() => {
-    if (orgao !== 0 ) {
-      api.get(`findCmpOrgao/${datVencto}/${orgao}`).then(response => {
+    if (orgao !== '' ) {
+      api.get(`findCmpEmiOrg/${datEmissao}/${orgao}`).then(response => {
           setCompras(response.data);        
       })
-      api.get(`totCmpOrgao/${datVencto}/${orgao}`).then(resp => {
+      api.get(`totCmpEmiOrg/${datEmissao}/${orgao}`).then(resp => {
         setTotal(resp.data);
       })
     }else {
-      api.get(`findCompras/${datVencto}`).then(response => {
+      api.get(`findCmpEmi/${datEmissao}`).then(response => {
         setCompras(response.data);        
       })
-      api.get(`totCompras/${datVencto}`).then(resp => {
+      api.get(`totCmpEmi/${datEmissao}`).then(resp => {
         setTotal(resp.data);
       })
     }        
@@ -165,11 +162,11 @@ export default function Compras() {
           variant="outlined"
           margin="normal"
           id="datVencto"
-          label="Dt. Vencimento"
-          name="datVencto"
+          label="Data Emissão"
+          name="datEmissao"
           autoFocus                
-          value={datVencto} 
-          onChange={(e) => {setDatVencto(e.target.value)}} 
+          value={datEmissao} 
+          onChange={(e) => {setDatEmissao(e.target.value)}} 
         />
         <Select 
           className={classes.select}
@@ -187,12 +184,7 @@ export default function Compras() {
 
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/pdfCmpVenc/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
-          </Button>
-        </div>
-        <div className={classes.cadastrar}>
-          <Button variant="contained" color="primary">
-            <Link to={() =>{}} className={classes.link}>Arquivo TXT</Link>        
+            <Link to={`/pdfCmpEmis/${datEmissao}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
           </Button>
         </div>
         <div className={classes.totaliza}>

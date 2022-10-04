@@ -78,83 +78,47 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Compras() {
+export default function VdaEmissao() {
   const classes = useStyles();
   const [compras, setCompras] = useState([]);
-  const [datVencto, setDatVencto] = useState(['']);
+  const [datInicio, setDatInicio] = useState(['']);
+  const [datFinal, setDatFinal] = useState(['']);
   const [total, setTotal] = useState([]);
-  const [orgaos, setOrgaos] = useState([]);
-  const [orgao, setOrgao] = useState(0);
+  const [convenio, setConvenio] = useState(0);
+  const [servidor, setServidor] = useState(0);
 
   useEffect(() => {
 
     let newDate = new Date();
     let diaNew = newDate.getDate();
     let monthNew = newDate.getMonth() + 1;
-    let yearNew = 0;
-
-    if (diaNew > 15) {
-      monthNew = newDate.getMonth() + 2;
-    }  
-    if (monthNew > 12) {
-      monthNew = 1
-      yearNew = newDate.getFullYear() + 1
-    }else {
-      yearNew = newDate.getFullYear();
-    }
-    
-    let dataNew = yearNew + '-' + monthNew + '-' + 15;
-    setDatVencto(dataNew);
+    let yearNew = newDate.getFullYear();
+        
+    let dataNew = yearNew + '-' + monthNew + '-' + diaNew;
+    setDatInicio(dataNew);
+    setDatFinal(dataNew);
 
     console.log('Nova Data:', dataNew);
-
-    //api.get(`compras`).then(response => {
-    //    setCompras(response.data);        
-    //})
        
-    api.get(`findCompras/${datVencto}`).then(response => {
+    api.get(`cmpPeriodo/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(response => {
       setCompras(response.data);
       
     })
 
-    api.get(`totCompras/${datVencto}`).then(resp => {
+    api.get(`somCompras/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(resp => {
       setTotal(resp.data);
-    })
-
-    api.get(`orgaos`).then(res => {
-      setOrgaos(res.data);
     })
 
   },[]);
 
-  //useEffect(() => {
-  //  api.get(`findCompras/${datVencto}`).then(response => {
-  //      setCompras(response.data);
-  //      
-  //  })
-  //  api.get(`totCompras/${datVencto}`).then(resp => {
-  //    setTotal(resp.data);
-  //  })  
-  //     
-  //},[datVencto]);
-
   useEffect(() => {
-    if (orgao !== 0 ) {
-      api.get(`findCmpOrgao/${datVencto}/${orgao}`).then(response => {
-          setCompras(response.data);        
-      })
-      api.get(`totCmpOrgao/${datVencto}/${orgao}`).then(resp => {
+    api.get(`cmpPeriodo/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(response => {
+        setCompras(response.data);
+    })
+    api.get(`somCompras/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(resp => {
         setTotal(resp.data);
-      })
-    }else {
-      api.get(`findCompras/${datVencto}`).then(response => {
-        setCompras(response.data);        
-      })
-      api.get(`totCompras/${datVencto}`).then(resp => {
-        setTotal(resp.data);
-      })
-    }        
-  },[datVencto,orgao]);
+    })     
+  },[datInicio, datFinal, convenio, servidor]);
   
   return (
     <div>
@@ -164,37 +128,56 @@ export default function Compras() {
           className={classes.input}
           variant="outlined"
           margin="normal"
-          id="datVencto"
-          label="Dt. Vencimento"
-          name="datVencto"
+          id="datInicio"
+          label="Data Inicial"
+          name="datInicio"
           autoFocus                
-          value={datVencto} 
-          onChange={(e) => {setDatVencto(e.target.value)}} 
+          value={datInicio} 
+          onChange={(e) => {setDatInicio(e.target.value)}} 
         />
-        <Select 
-          className={classes.select}
-          variant="outlined"
-          label="Orgão Admin"
-          labelId="orgAdmin" 
-          id="orgAdmin" 
-          value={orgao} 
-          onChange={(e) => {setOrgao(e.target.value)}}                 
-        >
-          {orgaos.map((row) => (
-            <MenuItem key={row.orgId} value={row.orgId}>{row.orgDescricao}</MenuItem>
-          ))}
-        </Select>   
 
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="datFinal"
+          label="Data Final"
+          name="datFinal"
+          autoFocus                
+          value={datFinal} 
+          onChange={(e) => {setDatFinal(e.target.value)}} 
+        />
+ 
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="convenio"
+          label="Informe CNPJ Convênio"
+          name="convenio"
+          autoFocus                
+          value={convenio} 
+          onChange={(e) => {setConvenio(e.target.value)}} 
+        />
+  
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="servidor"
+          label="Informe CPF Servidor"
+          name="servidor"
+          autoFocus                
+          value={servidor} 
+          onChange={(e) => {setServidor(e.target.value)}} 
+        />
+  
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/pdfCmpVenc/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
+            <Link to={`/pdfCmpEmis/${datInicio}/${datFinal}/${convenio}/${servidor}`} className={classes.link}>PDF</Link>        
           </Button>
         </div>
-        <div className={classes.cadastrar}>
-          <Button variant="contained" color="primary">
-            <Link to={() =>{}} className={classes.link}>Arquivo TXT</Link>        
-          </Button>
-        </div>
+
         <div className={classes.totaliza}>
           {total.map((cmp) => (
             <h2 key={cmp.totCmp}>              
@@ -208,10 +191,9 @@ export default function Compras() {
         <TableHead>
           <TableRow>
             <StyledTableCell align="left">ID</StyledTableCell>
-            <StyledTableCell align="left">Parcela</StyledTableCell>
+            <StyledTableCell align="left">Qtd.Parc</StyledTableCell>
             <StyledTableCell align="left">Emissão</StyledTableCell>
-            <StyledTableCell align="left">Vencimento</StyledTableCell>
-            <StyledTableCell align="left">Vlr. Parcela</StyledTableCell>
+            <StyledTableCell align="left">Vlr. Compra</StyledTableCell>
             <StyledTableCell align="left">Convenio</StyledTableCell>
             <StyledTableCell align="left">Servidor</StyledTableCell>
             <StyledTableCell align="right">Editar</StyledTableCell>
@@ -220,13 +202,12 @@ export default function Compras() {
         </TableHead>
         <TableBody>
           {compras.map((row) => (
-            <StyledTableRow key={row.parIdCompra} >
-              <StyledTableCell align="left" component="th" scope="row">{row.parIdCompra}</StyledTableCell>
-              <StyledTableCell align="left">{row.parNroParcela}</StyledTableCell>
+            <StyledTableRow key={row.cmpId} >
+              <StyledTableCell align="left" component="th" scope="row">{row.cmpId}</StyledTableCell>
+              <StyledTableCell align="left">{row.cmpQtdParcela}</StyledTableCell>
               <StyledTableCell align="left">{row.cmpEmissao}</StyledTableCell>
-              <StyledTableCell align="left">{row.parVctParcela}</StyledTableCell>
-              <StyledTableCell align="left">{Intl.NumberFormat('en-US', {style: 'currency', currency: 'BRL'}).format(row.parVlrParcela)}</StyledTableCell>
-              <StyledTableCell align="left">{row.cmpConvenio}</StyledTableCell>
+              <StyledTableCell align="left">{Intl.NumberFormat('en-US', {style: 'currency', currency: 'BRL'}).format(row.cmpVlrCompra)}</StyledTableCell>
+              <StyledTableCell align="left">{row.cnvNomFantasia}</StyledTableCell>
               <StyledTableCell align="left">{row.usrNome}</StyledTableCell>
               <StyledTableCell align="right">
               <Link to={() => {}} >

@@ -78,83 +78,57 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Compras() {
+export default function VdaVencimento() {
   const classes = useStyles();
   const [compras, setCompras] = useState([]);
-  const [datVencto, setDatVencto] = useState(['']);
+  const [datInicio, setDatInicio] = useState(['']);
+  const [datFinal, setDatFinal] = useState(['']);
   const [total, setTotal] = useState([]);
-  const [orgaos, setOrgaos] = useState([]);
-  const [orgao, setOrgao] = useState(0);
+  const [convenio, setConvenio] = useState(0);
+  const [servidor, setServidor] = useState(0);
 
   useEffect(() => {
 
     let newDate = new Date();
     let diaNew = newDate.getDate();
     let monthNew = newDate.getMonth() + 1;
-    let yearNew = 0;
-
+    let yearNew = newDate.getFullYear();
+    
     if (diaNew > 15) {
-      monthNew = newDate.getMonth() + 2;
+        monthNew = newDate.getMonth() + 2;
     }  
     if (monthNew > 12) {
-      monthNew = 1
-      yearNew = newDate.getFullYear() + 1
+        monthNew = 1
+        yearNew = newDate.getFullYear() + 1
     }else {
-      yearNew = newDate.getFullYear();
+        yearNew = newDate.getFullYear();
     }
-    
+      
     let dataNew = yearNew + '-' + monthNew + '-' + 15;
-    setDatVencto(dataNew);
+    setDatInicio(dataNew);
+    setDatFinal(dataNew);
 
     console.log('Nova Data:', dataNew);
-
-    //api.get(`compras`).then(response => {
-    //    setCompras(response.data);        
-    //})
        
-    api.get(`findCompras/${datVencto}`).then(response => {
+    api.get(`vctPeriodo/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(response => {
       setCompras(response.data);
       
     })
 
-    api.get(`totCompras/${datVencto}`).then(resp => {
+    api.get(`somVctComp/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(resp => {
       setTotal(resp.data);
-    })
-
-    api.get(`orgaos`).then(res => {
-      setOrgaos(res.data);
     })
 
   },[]);
 
-  //useEffect(() => {
-  //  api.get(`findCompras/${datVencto}`).then(response => {
-  //      setCompras(response.data);
-  //      
-  //  })
-  //  api.get(`totCompras/${datVencto}`).then(resp => {
-  //    setTotal(resp.data);
-  //  })  
-  //     
-  //},[datVencto]);
-
   useEffect(() => {
-    if (orgao !== 0 ) {
-      api.get(`findCmpOrgao/${datVencto}/${orgao}`).then(response => {
-          setCompras(response.data);        
-      })
-      api.get(`totCmpOrgao/${datVencto}/${orgao}`).then(resp => {
+    api.get(`vctPeriodo/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(response => {
+        setCompras(response.data);
+    })
+    api.get(`somVctComp/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(resp => {
         setTotal(resp.data);
-      })
-    }else {
-      api.get(`findCompras/${datVencto}`).then(response => {
-        setCompras(response.data);        
-      })
-      api.get(`totCompras/${datVencto}`).then(resp => {
-        setTotal(resp.data);
-      })
-    }        
-  },[datVencto,orgao]);
+    })     
+  },[datInicio, datFinal, convenio, servidor]);
   
   return (
     <div>
@@ -164,37 +138,56 @@ export default function Compras() {
           className={classes.input}
           variant="outlined"
           margin="normal"
-          id="datVencto"
-          label="Dt. Vencimento"
-          name="datVencto"
+          id="datInicio"
+          label="Data Inicial"
+          name="datInicio"
           autoFocus                
-          value={datVencto} 
-          onChange={(e) => {setDatVencto(e.target.value)}} 
+          value={datInicio} 
+          onChange={(e) => {setDatInicio(e.target.value)}} 
         />
-        <Select 
-          className={classes.select}
-          variant="outlined"
-          label="Orgão Admin"
-          labelId="orgAdmin" 
-          id="orgAdmin" 
-          value={orgao} 
-          onChange={(e) => {setOrgao(e.target.value)}}                 
-        >
-          {orgaos.map((row) => (
-            <MenuItem key={row.orgId} value={row.orgId}>{row.orgDescricao}</MenuItem>
-          ))}
-        </Select>   
 
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="datFinal"
+          label="Data Final"
+          name="datFinal"
+          autoFocus                
+          value={datFinal} 
+          onChange={(e) => {setDatFinal(e.target.value)}} 
+        />
+ 
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="convenio"
+          label="Informe CNPJ Convênio"
+          name="convenio"
+          autoFocus                
+          value={convenio} 
+          onChange={(e) => {setConvenio(e.target.value)}} 
+        />
+  
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="servidor"
+          label="Informe CPF Servidor"
+          name="servidor"
+          autoFocus                
+          value={servidor} 
+          onChange={(e) => {setServidor(e.target.value)}} 
+        />
+  
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/pdfCmpVenc/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
+            <Link to={`/pdfVctCompras/${datInicio}/${datFinal}/${convenio}/${servidor}`} className={classes.link}>PDF</Link>        
           </Button>
         </div>
-        <div className={classes.cadastrar}>
-          <Button variant="contained" color="primary">
-            <Link to={() =>{}} className={classes.link}>Arquivo TXT</Link>        
-          </Button>
-        </div>
+
         <div className={classes.totaliza}>
           {total.map((cmp) => (
             <h2 key={cmp.totCmp}>              

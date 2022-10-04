@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 
 });
 
-function PdfCmpVenc() {
+function PdfVctCompras() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
 
@@ -142,25 +142,19 @@ function PdfCmpVenc() {
     };
    
     useEffect(() => {
-        let dataInicial = params.datVencto;
-        let dataFinal = params.datVencto;
-        let orgId = params.orgao;
-        if (orgId !== '') {
-           orgId = '999';
-        }
+        let dataInicio = params.datInicio;
+        let dataFinal = params.datFinal;
+        let cnpjCnv = params.convenio;
+        let cpfSrv = params.servidor;
+        
+        console.log('data incial:', dataInicio);
+        console.log('data incial:', dataFinal);
+        console.log('convenio:', cnpjCnv);
+        console.log('servidor:', cpfSrv);
 
-        if (orgId !== '999') {
-            console.log('1')
-            api.get(`pdfEmiOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
-                setVendas(resp.data);  
-            })
-        }else {
-            console.log('2')
-            api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}`).then(resp => {
-                setVendas(resp.data);  
-            })
-        }            
-
+        api.get(`pdfVctCompras/${dataInicio}/${dataFinal}/${cnpjCnv}/${cpfSrv}`).then(resp => {
+           setVendas(resp.data);  
+        })
     },[]);
 
     function emitePdf() {
@@ -178,4 +172,4 @@ function PdfCmpVenc() {
     );
 }
 
-export default PdfCmpVenc;
+export default PdfVctCompras;

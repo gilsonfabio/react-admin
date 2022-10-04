@@ -52,7 +52,11 @@ import NewInformacao from './pages/NewInformacao';
 import ForgotPassword from './pages/ForgotPassword';
 
 import Extratos from './pages/Compras';
+import VdaEmissao from './pages/VdaEmissao';
+import VdaVencimento from './pages/VdaVencimento';
 import PdfCmpVenc from './pages/PdfCmpVenc';
+import PdfCmpEmis from './pages/PdfCmpEmis';
+import PdfVctCompras from './pages/PdfVctCompras';
 import ExtAdmin from './pages/ExtAdmin';
 import PdfExtConv from './pages/PdfExtConv';
 import StaCartao from './pages/StaCartao';
@@ -115,7 +119,11 @@ export default function MainRoutes() {
             <Route path="/altfinformacao/:infUsrId/:infId" element={<AltInformacao/>} />
 
             <Route path="/extratos" element={<Extratos/>} />
-            <Route path="/pdfCmpVenc/:datVencto/" element={<PdfCmpVenc />} />
+            <Route path="/vdaemissao" element={<VdaEmissao/>} />
+            <Route path="/vdavencimento" element={<VdaVencimento/>} />
+            <Route path="/pdfCmpVenc/:datVencto/:orgao" element={<PdfCmpVenc />} />
+            <Route path="/pdfCmpEmis/:datInicio/:datFinal/:convenio/:servidor" element={<PdfCmpEmis />} />
+            <Route path="/pdfVctCompras/:datInicio/:datFinal/:convenio/:servidor" element={<PdfVctCompras />} />
             <Route path="/extAdmin/" element={<ExtAdmin />} />
             <Route path="/pdfExtConv/:datVencto/" element={<PdfExtConv />} />
             <Route path="/stacartao/:usrId" element={<StaCartao/>} />
