@@ -43,7 +43,7 @@ export default function AltPassword() {
   function handleUpdPassword(e) {
     e.preventDefault();
     
-    let emailUsuario = params.usrEmail;
+    let emailUsuario = params.emailUsuario;
     api.put(`updPassword/${emailUsuario}`, {
         newPassword,   
       }).then(() => {
@@ -55,7 +55,7 @@ export default function AltPassword() {
   }
    
   useEffect(() => {
-    let idUsr = params.usrId;    
+    let idUsr = params.codUsuario;    
     api.get(`searchUser/${idUsr}`).then(response => {
         setCodUsuario(response.data[0].usrId);
         setNomUsuario(response.data[0].usrNome);

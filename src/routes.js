@@ -63,7 +63,8 @@ import StaCartao from './pages/StaCartao';
 import ImpFicha from './pages/ImpFicha';
 import PdfCnvContrato from './pages/PdfCnvContrato';
 import DelUser from './pages/DelServidor';
-
+import ArqCmpTxt from './pages/ArqCmpTxt';
+ 
 export default function MainRoutes() {
     return(
         <Routes>
@@ -129,6 +130,8 @@ export default function MainRoutes() {
             <Route path="/stacartao/:usrId" element={<StaCartao/>} />
             <Route path="/impficha/:usrId" element={<ImpFicha/>} />
             <Route path="/pdfcnvcontrato/:usrId" element={<PdfCnvContrato/>} />
+
+            <Route path="/arqCmpTxt/:datVencto/:orgao" element={<ArqCmpTxt />} />
 
         </Routes>        
     )
