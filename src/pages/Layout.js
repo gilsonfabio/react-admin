@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,6 +25,7 @@ import { useNavigate } from 'react-router-dom';
 import bannerCine from '../assets/images/bannerCard1.jpg';
 
 import { Link  } from 'react-router-dom';
+import api from '../services/api';
 
 const drawerWidth = 240;
 
@@ -100,7 +101,11 @@ export default function Layout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  
+  const [userNome, setUserNome] = useState('');
+  const [userCodigo, setUserCodigo] = useState('');
 
+  const codUsuario = localStorage.getItem('usuarioId'); 
   const nomeUsuario = localStorage.getItem('usuarioNome'); 
 
   const handleDrawerOpen = () => {
@@ -135,8 +140,22 @@ export default function Layout() {
     { name: 'Vdas Vencimento', to: '/vdavencimento', icon: <AssignmentReturnedIcon /> },    
     { name: 'Extrato Convênio', to: '/extAdmin', icon: <AssignmentReturnedIcon /> },   
     { name: 'Compras Servidor', to: '/cmpservidor', icon: <AssignmentReturnedIcon /> },
-    { name: 'Importa Servidor', to: '/impservidor', icon: <AssignmentReturnedIcon /> },    
+    { name: 'Importa Servidor', to: '/altpassword', icon: <AssignmentReturnedIcon /> },    
   ];
+
+  useEffect(() => {
+    
+    let idUsr = codUsuario; 
+    console.log('Usuário:', idUsr);   
+    api.get(`searchUser/${idUsr}`).then(response => {
+        setUserCodigo(response.data[0].usrId);
+        setUserNome(response.data[0].usrNome);
+    }).catch (err => { 
+        alert('Falha no login! Tente novamente.')
+        localStorage.clear()
+        navigate(-1); 
+      })       
+  },[]);
 
   return (
     <div className={classes.root}>

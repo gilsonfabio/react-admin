@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
  
 export default function AltPassword() {
   const classes = useStyles();
-  //const theme = useStyles();
   const navigate = useNavigate();
   
   const params = useParams();
+  const [codSeguranca, setCodSeguranca] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [cnfPassword, setCnfPassword] = useState('');
   const [nomUsuario, setNomUsuario] = useState('');
@@ -45,7 +45,8 @@ export default function AltPassword() {
     
     let emailUsuario = params.emailUsuario;
     api.put(`updPassword/${emailUsuario}`, {
-        newPassword,   
+        newPassword,
+        codSeguranca,   
       }).then(() => {
         alert('Senha alterada com sucesso!')
       }).catch(() => {
@@ -54,23 +55,39 @@ export default function AltPassword() {
     navigate(-1); 
   }
    
-  useEffect(() => {
-    let idUsr = params.codUsuario;    
-    api.get(`searchUser/${idUsr}`).then(response => {
-        setCodUsuario(response.data[0].usrId);
-        setNomUsuario(response.data[0].usrNome);
-    })    
-  },[]);
-     
+  //
+  //useEffect(() => {
+  //  let idUsr = params.codUsuario; 
+  //  console.log('Usuário:', idUsr);   
+  //  api.get(`searchUser/${idUsr}`).then(response => {
+  //      setCodUsuario(response.data[0].usrId);
+  //      setNomUsuario(response.data[0].usrNome);
+  //  })    
+  //},[]);
+  //
+
   return (  
     <div>
       <MenBarra />
       <main className={classes.main}>
         <div className={classes.paper}> 
         <Typography variant="h6" noWrap>
-            Altere os dados do Usuário 
+            Altere os dados do Usuário {nomUsuario}
         </Typography>         
-        <form onSubmit={handleUpdPassword} >            
+        <form onSubmit={handleUpdPassword} > 
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="codSegurança"
+                label="Informe Código Segurança"
+                name="codSegurança"
+                autoFocus                
+                value={codSeguranca} 
+                onChange={(e) => {setCodSeguranca(e.target.value)}} 
+            />           
             <TextField 
                 className={classes.input}
                 type="password"

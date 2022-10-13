@@ -50,6 +50,7 @@ import AltInformacao from './pages/AltInformacao';
 import NewInformacao from './pages/NewInformacao';
 
 import ForgotPassword from './pages/ForgotPassword';
+import AltPassword from './pages/AltPassword';
 
 import Extratos from './pages/Compras';
 import VdaEmissao from './pages/VdaEmissao';
@@ -72,6 +73,7 @@ export default function MainRoutes() {
             <Route path="/layout" element={<Layout />} />  
             <Route path="/users" element={<Users />} /> 
             <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/altpassword/:email" element={<AltPassword />} />
 
             <Route path="/newuser" element={<NewUser />} />
             <Route path="/altuser/:usrId" element={<AltUser/>} />

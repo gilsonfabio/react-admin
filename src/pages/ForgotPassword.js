@@ -37,8 +37,8 @@ export default function ForgotPassword() {
     async function handleEmail(e){
       e.preventDefault();
       try {
-        await api.get(`envEmail/${email}`)
-        navigate(-1); 
+        await api.get(`recPassword/${email}`)
+        navigate(`/altpassword/${email}`);
       } catch (err) {
         alert('Falha no login! Tente novamente.', email);
       }    
