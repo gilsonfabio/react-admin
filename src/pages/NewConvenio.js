@@ -145,27 +145,9 @@ export default function AltConvenio() {
   };
 
   useEffect(() => {
-    let idCnv = params.cnvId;    
-    api.get(`searchConv/${idCnv}`).then(response => {
-        setNomFantasia(response.data[0].cnvNomFantasia);
-        setRazSocial(response.data[0].cnvRazSocial);
-        setTelefone(response.data[0].cnvTelefone);
-        setEmail(response.data[0].cnvEmail);
-        setCpfCnpj(response.data[0].cnvCpfCnpj);
-        setContato(response.data[0].cnvContato);
-        setAtividade(response.data[0].cnvAtividade);
-        setEndereco(response.data[0].cnvEndereco);
-        setBairro(response.data[0].cnvBairro);
-        setCidade(response.data[0].cnvCidade);
-        setEstado(response.data[0].cnvEstado);
-        setCep(response.data[0].cnvCep);
-
-        api.get(`atividades`).then(resp => {
-            setAtividades(resp.data);
-            
-        })
-
-    })    
+    api.get(`atividades`).then(resp => {
+      setAtividades(resp.data);
+    })       
   },[]);
      
   return (  
