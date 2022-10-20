@@ -115,9 +115,8 @@ export default function AltConvenio() {
 
   function handleCreateConvenio(e) {
     e.preventDefault();
-    
-    let idCnv = params.cnvId;
-    api.put(`altconvenio/${idCnv}`, {
+     
+    api.post('newconvenio', {
       cnvRazSocial, 
       cnvNomFantasia,
       cnvCpfCnpj,            
@@ -131,13 +130,13 @@ export default function AltConvenio() {
       cnvBairro,
       cnvCidade,
       cnvEstado,
-      cnvCep      
-      }).then(() => {
-        alert('Convênio alterado com sucesso!')
-      }).catch(() => {
-        alert('Erro na alteração!');
-    })   
-    navigate(-1); 
+      cnvCep    
+    }).then(() => {
+      alert('Convênio cadastrado com sucesso!')
+    }).catch(() => {
+      alert('Erro no cadastro!');
+    })  
+    navigate(-1);     
   }
    
   const handleChange = (event, newValue) => {
@@ -345,7 +344,42 @@ export default function AltConvenio() {
           </div>
         </div>  
       </TabPanel>
-      <TabPanel value={value} index={2}></TabPanel>
+      <TabPanel value={value} index={2}>
+        <div className={classes.dados}>
+          <div className={classes.left}>
+            <TextField 
+                className={classes.input}
+                type="password"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="Informe senha de acesso"
+                name="password"
+                autoFocus                
+                value={cnvPassword} 
+                onChange={(e) => {setPassword(e.target.value)}} 
+            />            
+          </div>
+          <div className={classes.right}>
+            <TextField 
+                className={classes.input}
+                type="password"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="cncPassword"
+                label="Informe senha cancelamento"
+                name="cncPassword"
+                autoFocus                
+                value={cnvCanPassword} 
+                onChange={(e) => {setCanPassword(e.target.value)}} 
+            />
+          </div>
+        </div>  
+      </TabPanel>
       <TabPanel value={value} index={3}></TabPanel>
       <TabPanel value={value} index={4}></TabPanel>
       <TabPanel value={value} index={5}></TabPanel>
