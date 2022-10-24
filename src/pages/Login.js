@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) =>
     sloganTitle: {
       marginBottom: theme.spacing(2),
     },
+    versao: {
+      fontSize: 10,
+      color: '#ccc',
+    },
     form: {
       padding: theme.spacing(4),
       maxWidth: '500px',
@@ -66,6 +70,9 @@ export default function Login() {
         </Typography>
         <Typography variant="h4" component="h2">
           O seu administrador de cartões
+        </Typography>
+        <Typography className={classes.versao}>
+          versão: 1.23
         </Typography>
       </div>
       <Paper className={classes.form} elevation={3}>
