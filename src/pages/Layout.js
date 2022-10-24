@@ -144,16 +144,16 @@ export default function Layout() {
   ];
 
   useEffect(() => {    
-  /*  let idUsr = localStorage.getItem('usuarioId'); 
-    console.log('Usuário:', idUsr);   
-    api.get(`searchUser/${idUsr}`).then(response => {
-        setUserCodigo(response.data[0].usrId);
-        setUserNome(response.data[0].usrNome);
+    let idAdm = codUsuario; 
+    //console.log('Usuário:', idAdm);   
+    api.get(`searchAdmin/${idAdm}`).then(response => {
+        setUserCodigo(response.data[0].admId);
+        setUserNome(response.data[0].admNome);
     }).catch (err => { 
-        alert('Falha no login! Tente novamente.', idUsr)
+        alert('Falha no login! Tente novamente.', idAdm)
         localStorage.clear()
         navigate(-1); 
-    }) */       
+    })        
   },[]);
 
   return (
