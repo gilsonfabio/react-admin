@@ -143,18 +143,17 @@ export default function Layout() {
     { name: 'Importa Servidor', to: '/altpassword', icon: <AssignmentReturnedIcon /> },    
   ];
 
-  useEffect(() => {
-    
-    let idUsr = codUsuario; 
+  useEffect(() => {    
+  /*  let idUsr = localStorage.getItem('usuarioId'); 
     console.log('Usuário:', idUsr);   
     api.get(`searchUser/${idUsr}`).then(response => {
         setUserCodigo(response.data[0].usrId);
         setUserNome(response.data[0].usrNome);
     }).catch (err => { 
-        alert('Falha no login! Tente novamente.')
+        alert('Falha no login! Tente novamente.', idUsr)
         localStorage.clear()
         navigate(-1); 
-      })       
+    }) */       
   },[]);
 
   return (
