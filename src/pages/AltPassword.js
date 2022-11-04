@@ -44,7 +44,7 @@ export default function AltPassword() {
     e.preventDefault();
     
     let emailUsuario = params.emailUsuario;
-    api.put(`updPassword/${emailUsuario}`, {
+    api.put(`updPassAdmin/${emailUsuario}`, {
         newPassword,
         codSeguranca,   
       }).then(() => {
