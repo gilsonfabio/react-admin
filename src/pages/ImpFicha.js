@@ -160,7 +160,7 @@ function ImpFicha() {
         return [
             {text: fil.filId, fontSize: 8, margin: [0, 2, 0, 2] },
             {text: fil.filNome, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: fil.filNascimento, fontSize: 8, margin: [0, 2, 0, 2]}
+            {text: moment(fil.filNascimento).format('L'), fontSize: 8, margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -241,7 +241,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento: ${usrNascimento}` ,alignment: 'left', 
+                                text: `Nascimento: ${moment(usrNascimento).format('L')}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -271,7 +271,7 @@ function ImpFicha() {
                             },
 
                             { 
-                                text: `Nasc Conjuge: ${usrNasConjuge}`, alignment: 'left', 
+                                text: `Nasc Conjuge: ${moment(usrNasConjuge).format('L')}`, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -470,7 +470,7 @@ function ImpFicha() {
                                 bold: true,                                
                             },
                             { 
-                                text: `Data Admissão: ${usrAdmissao}`, 
+                                text: `Data Admissão: ${moment(usrAdmissao).format('L')}`, 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true

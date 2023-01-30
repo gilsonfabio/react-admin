@@ -85,6 +85,8 @@ function PdfCnvContrato() {
     const [telefone, setTelefone] = useState('');
     const [orgaoadm, setOrgAdmin] = useState('');
     const [tipUser, setTipUser] = useState('');
+    const [secDescricao, setSecDescricao] = useState('');
+
 
     //const srvId = localStorage.getItem('usuarioId');
     const params = useParams(); 
@@ -137,7 +139,7 @@ function PdfCnvContrato() {
             },
             {text: `Nome do Servidor: ${nomServidor}\n\n`, fontsize: 10},
             {text: `Nº Identidade:${identidade} / Orgão Emissor: ${orgEmissor} / Nº CPF: ${cpfServidor} \n\n`, fontsize: 10},
-            {text: `Matricula: ${matricula} / Cargo: ${cargo} / Lotação: ${lotacao} / Orgão Adm: ${orgaoadm} \n\n`, fontsize: 10},
+            {text: `Matricula: ${matricula} / Cargo: ${cargo} / Lotação: ${lotacao} / Orgão Adm: ${orgaoadm} / ${secDescricao} \n\n`, fontsize: 10},
             {text: `Endereço: ${endereco} / Bairro: ${bairro} / Cep: ${cep} \n\n`, fontsize: 10},
             {text: `Telefones: ${telefone} \n\n`, fontsize: 10},
             {text: 'Com base nas normas legais vigentes, ajustam e celebram entre si o presente contrato, regendo-se o mesmo pelas cláusulas e condições seguintes:\n\n'},
@@ -214,7 +216,7 @@ function PdfCnvContrato() {
                     '______________________________________________________________________________\n',
                     'Rosimeire Pereira Martins – Diretora Financeira da Associação Cultural, Esportiva e Social dos Servidores Públicos Municipais de Caldas Novas.\n\n',
                     '______________________________________________________________________________\n', 
-                    'Contratante-servidor.\n\n',
+                    `Contratante-servidor - ${nomServidor}.\n\n`,
                     '______________________________________________________________________________\n', 
                     'Eurípedes Israel de Morais - Presidente do Sindicato dos Servidores Públicos Municipais de Caldas Novas-Sindicaldas.\n\n\n\n',
                     'Testemunha 1: _________________________________ CPF:______________________ \n\n', 
@@ -259,7 +261,8 @@ function PdfCnvContrato() {
             setCep(resp.data.usrCep);  
             setTelefone(resp.data.usrCelular);
             setOrgAdmin(resp.data.orgDescricao);  
-            setTipUser(resp.data.usrTipContrato);  
+            setTipUser(resp.data.usrTipContrato);
+            setSecDescricao(resp.data.secDescricao); 
         })
     },[]);
 
