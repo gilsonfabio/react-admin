@@ -241,7 +241,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento: ${moment(usrNascimento).format('L')}` ,alignment: 'left', 
+                                text: `Nascimento: ${moment(usrNascimento + 1).format('L')}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -271,7 +271,7 @@ function ImpFicha() {
                             },
 
                             { 
-                                text: `Nasc Conjuge: ${moment(usrNasConjuge).format('L')}`, alignment: 'left', 
+                                text: `Nasc Conjuge: ${moment(usrNasConjuge + 1 ).format('L')}`, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -470,7 +470,7 @@ function ImpFicha() {
                                 bold: true,                                
                             },
                             { 
-                                text: `Data Admissão: ${moment(usrAdmissao).format('L')}`, 
+                                text: `Data Admissão: ${moment(usrAdmissao + 1).format('L')}`, 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
