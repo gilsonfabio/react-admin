@@ -160,7 +160,7 @@ function ImpFicha() {
         return [
             {text: fil.filId, fontSize: 8, margin: [0, 2, 0, 2] },
             {text: fil.filNome, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(fil.filNascimento).format('L'), fontSize: 8, margin: [0, 2, 0, 2]}
+            {text: moment(fil.filNascimento).locale('pt-br').format('L'), fontSize: 8, margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -241,7 +241,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento: ${moment(usrNascimento).format('dd/MM/yyyy')}` ,alignment: 'left', 
+                                text: `Nascimento: ${moment(usrNascimento).locale('pt-br').format('L')}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -271,7 +271,7 @@ function ImpFicha() {
                             },
 
                             { 
-                                text: `Nasc Conjuge: ${moment(usrNasConjuge).format('dd/MM/yyyy')}`, alignment: 'left', 
+                                text: `Nasc Conjuge: ${moment(usrNasConjuge).locale('pt-br').format('L')}`, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -470,7 +470,7 @@ function ImpFicha() {
                                 bold: true,                                
                             },
                             { 
-                                text: `Data Admissão: ${moment(usrAdmissao).format('dd/MM/yyyy')}`, 
+                                text: `Data Admissão: ${moment(usrAdmissao).locale('pt-br').format('L')}`, 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
