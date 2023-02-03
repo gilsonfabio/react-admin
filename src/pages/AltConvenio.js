@@ -106,8 +106,8 @@ export default function AltConvenio() {
   const [cnvCidade, setCidade] = useState('');
   const [cnvEstado, setEstado] = useState('');
   const [cnvCep, setCep] = useState('');
-  //const [cnvPassword, setPassword] = useState('');
-  //const [cnvCanPassword, setCanPassword] = useState('');
+  const [cnvPassword, setPassword] = useState('');
+  const [cnvCanPassword, setCanPassword] = useState('');
 
   const [atividades, setAtividades] = useState([]);
 
@@ -127,7 +127,9 @@ export default function AltConvenio() {
       cnvBairro,
       cnvCidade,
       cnvEstado,
-      cnvCep
+      cnvCep,
+      cnvPassword,
+      cnvCanPassword
       }).then(() => {
         alert('Convênio alterado com sucesso!')
       }).catch(() => {
@@ -155,6 +157,8 @@ export default function AltConvenio() {
         setCidade(response.data[0].cnvCidade);
         setEstado(response.data[0].cnvEstado);
         setCep(response.data[0].cnvCep);
+        setPassword(response.data[0].cnvPassword);
+        setCanPassword(response.data[0].cnvCanPassword);
 
         api.get(`atividades`).then(resp => {
             setAtividades(resp.data);
@@ -180,7 +184,7 @@ export default function AltConvenio() {
       >
         <Tab label="Básicos" {...a11yProps(0)} />
         <Tab label="Endereço" {...a11yProps(1)} />
-        <Tab label="        " {...a11yProps(2)} />
+        <Tab label="Segurança" {...a11yProps(2)} />
         <Tab label="        " {...a11yProps(3)} />
         <Tab label="        " {...a11yProps(4)} />
         <Tab label="        " {...a11yProps(5)} />
@@ -359,7 +363,42 @@ export default function AltConvenio() {
           </div>
         </div>  
       </TabPanel>
-      <TabPanel value={value} index={2}></TabPanel>
+      <TabPanel value={value} index={2}>
+        <div className={classes.dados}>
+          <div className={classes.left}>
+            <TextField 
+                className={classes.input}
+                type="password"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="Informe senha de acesso"
+                name="password"
+                autoFocus                
+                value={cnvPassword} 
+                onChange={(e) => {setPassword(e.target.value)}} 
+            />            
+          </div>
+          <div className={classes.right}>
+            <TextField 
+                className={classes.input}
+                type="password"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="cncPassword"
+                label="Informe senha cancelamento"
+                name="cncPassword"
+                autoFocus                
+                value={cnvCanPassword} 
+                onChange={(e) => {setCanPassword(e.target.value)}} 
+            />
+          </div>
+        </div>  
+      </TabPanel>
       <TabPanel value={value} index={3}></TabPanel>
       <TabPanel value={value} index={4}></TabPanel>
       <TabPanel value={value} index={5}></TabPanel>

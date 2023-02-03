@@ -9,6 +9,8 @@ import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 
 import api from '../services/api';
 import moment from 'moment';
+import 'moment/locale/pt-br'
+
 
 const useStyles = makeStyles({
     buttonArea: {
@@ -160,7 +162,7 @@ function ImpFicha() {
         return [
             {text: fil.filId, fontSize: 8, margin: [0, 2, 0, 2] },
             {text: fil.filNome, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(fil.filNascimento).locale('pt-br').format('L'), fontSize: 8, margin: [0, 2, 0, 2]}
+            {text: moment(fil.filNascimento).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -241,7 +243,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento: ${moment(usrNascimento).locale('pt-br').format('L')}` ,alignment: 'left', 
+                                text: `Nascimento: ${usrNascimento}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -271,7 +273,7 @@ function ImpFicha() {
                             },
 
                             { 
-                                text: `Nasc Conjuge: ${moment(usrNasConjuge).locale('pt-br').format('L')}`, alignment: 'left', 
+                                text: `Nasc Conjuge: ${moment(usrNasConjuge).format('DD-MM-YYYY')}`, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -470,7 +472,7 @@ function ImpFicha() {
                                 bold: true,                                
                             },
                             { 
-                                text: `Data Admissão: ${moment(usrAdmissao).locale('pt-br').format('L')}`, 
+                                text: `Data Admissão: ${moment(usrAdmissao).format('DD-MM-YYYY')}`, 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
