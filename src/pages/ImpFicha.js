@@ -82,6 +82,7 @@ function ImpFicha() {
 
     const [usrNome, setUsrNome] = useState('');
     const [usrEmail,  setUsrEmail] = useState('');
+    const [usrCartao, setUsrCartao] = useState('');
     const [usrCelular,  setUsrCelular] = useState('');
     const [usrCpf,  setUsrCpf] = useState('');
     const [usrMatricula,  setUsrMatricula] = useState('');
@@ -170,15 +171,20 @@ function ImpFicha() {
         {
                 style: 'tableExample',
                 table: {
-                    widths: ['100%'],
-                    heights: [20],
+                    widths: ['70%', '30%'],
+                    heights: [20,20],
                     body: [
                         [
                             { 
                                 text: `Nome Servidor(a): ${nomeUsr}`,
                                 fontSize: 14,
                                 bold: true,
-                            },             
+                            },    
+                            { 
+                                text: `Nº: ${usrCartao}`,
+                                fontSize: 14,
+                                bold: true,
+                            },               
                         ],
                     ],
                 },
@@ -742,6 +748,7 @@ function ImpFicha() {
             
             setUsrNome(response.data[0].usrNome);
             setUsrEmail(response.data[0].usrEmail);
+            setUsrCartao(response.data[0].usrCartao);
             setUsrCelular(response.data[0].usrCelular);
             setUsrCpf(response.data[0].usrCpf);
             setUsrMatricula(response.data[0].usrMatricula);
