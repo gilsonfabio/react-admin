@@ -177,6 +177,7 @@ export default function AltServidores() {
         setUsrObsBloqueio(response.data[0].usrObsBloqueio);
         setUsrPai(response.data[0].usrPai);
         setUsrMae(response.data[0].usrMae);
+        setUsrPassword(response.data[0].usrPassword);
 
         setDatNasc(moment(response.data[0].usrNascimento).format('L'));
     })
@@ -242,6 +243,7 @@ export default function AltServidores() {
       usrObsBloqueio,
       usrPai,
       usrMae,
+      usrPassword,
     }).then(() => {
         alert('Servidor alterado com sucesso!')
     }).catch(() => {
@@ -692,7 +694,6 @@ export default function AltServidores() {
           <div className={classes.right}>
             <TextField 
                 className={classes.input}
-                disabled="true"
                 type="password"
                 variant="outlined"
                 margin="normal"
