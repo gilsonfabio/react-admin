@@ -87,11 +87,15 @@ function PdfExtConv() {
 
     const arrayConvenios = [];
 
-    const dadosCnv = arrayConvenios.map((convenio) => {
+    const dados = vendas.map((venda) => {
         return [
-            {text: convenio.idCnv, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: convenio.nomCnv, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(convenio.totCnv), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
+            {text: venda.tcnvId, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.cnvCpfCnpj, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.cnvNomFantasia, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.tcnvVlrTotal), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.tcnvVlrTaxa), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.tcnvVlrLiquido), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.tcnvVlrSistema), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -101,14 +105,18 @@ function PdfExtConv() {
         {
             table: {
                 headerRows: 1,
-                widths: [30, 140, 70],
+                widths: [15, 70, 120, 60,60,60,60],
                 body: [
                     [
                         {text: 'ID', style: 'tableHeader', fontSize: 8},
+                        {text: 'CNPJ', style: 'tableHeader', fontSize: 8},
                         {text: 'CONVENIO', style: 'tableHeader', fontSize: 8},
-                        {text: 'VLR. DA COMPRA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
+                        {text: 'TOT. DA COMPRA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
+                        {text: 'TOT. DA TAXA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
+                        {text: 'TOT. LIQUIDO', style: 'tableHeader', fontSize: 8, alignment: 'right'},
+                        {text: 'TOT. SISTEMA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
                     ],
-                    ...dadosCnv
+                    ...dados
                 ]
             },
             layout: 'headerLineOnly'
@@ -138,40 +146,17 @@ function PdfExtConv() {
    
     useEffect(() => {
         let dataInicial = params.datVencto;
-        let dataFinal = params.datVencto;
 
-        //console.log(dataInicial);
+        console.log(dataInicial);
         //console.log(dataFinal);
 
-        api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}`).then(resp => {
+        api.get(`pdfExtAdm/${dataInicial}`).then(resp => {
             setVendas(resp.data);  
         })                
 
     },[]);
  
     function emitePdf() {
-        for (let i = 0; i < vendas.length; i++) {
-            const convenio = vendas[i].cnvNomFantasia;
-            const vlrParcela = vendas[i].parVlrParcela;
-
-            for(let x = 0; x <= arrayConvenios.length; x++) {
-                if ( !arrayConvenios[x] ) {
-                    arrayConvenios.push(
-                        {idCnv: x, nomCnv: convenio, totCnv: vlrParcela }
-                    );
-                    console.log('Novo: ', x, arrayConvenios[x]);      
-                    x = 50;
-                }else {
-                    if(convenio === arrayConvenios[x].nomCnv) {
-                        arrayConvenios[x].totCnv += vlrParcela;
-                        console.log('Somando: ', x, arrayConvenios[x]);   
-                        x = 50;
-                    }
-                }                         
-            }    
-        }
-
-        console.log(arrayConvenios);      
         pdfMake.createPdf(docDefinition).open(); 
     };
 

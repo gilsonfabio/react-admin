@@ -86,13 +86,13 @@ function PdfCmpEmis() {
 
     const dados = vendas.map((venda) => {
         return [
-            {text: venda.cmpId, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: venda.cmpQtdParcela, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: venda.usrNome, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: venda.cnvNomFantasia, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: venda.cmpCodSeguranca, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.cmpVlrCompra), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
+            {text: venda.cmpId, fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: venda.cmpQtdParcela, fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: venda.usrMatricula, fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: venda.usrNome, fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: venda.cnvNomFantasia, fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.cmpVlrCompra), fontSize: 7, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -102,16 +102,16 @@ function PdfCmpEmis() {
         {
             table: {
                 headerRows: 1,
-                widths: [30, 30, 140, 100, 50, 60, 70],
+                widths: [20, 25, 40, 110, 110, 60, 60],
                 body: [
                     [
-                        {text: 'ID', style: 'tableHeader', fontSize: 8},
-                        {text: 'QTD.PARC', style: 'tableHeader', fontSize: 8},
-                        {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 8},  
-                        {text: 'CONVENIO', style: 'tableHeader', fontSize: 8},
-                        {text: 'EMISSÃO', style: 'tableHeader', fontSize: 8},
-                        {text: 'C.SEGURANÇA', style: 'tableHeader', fontSize: 8},                                                                      
-                        {text: 'VLR. DA COMPRA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
+                        {text: 'ID', style: 'tableHeader', fontSize: 7},
+                        {text: 'PLANO', style: 'tableHeader', fontSize: 7},
+                        {text: 'MATRICULA', style: 'tableHeader', fontSize: 7},
+                        {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 7},  
+                        {text: 'CONVENIO', style: 'tableHeader', fontSize: 7},
+                        {text: 'EMISSÃO', style: 'tableHeader', fontSize: 7},
+                        {text: 'VLR. DA COMPRA', style: 'tableHeader', fontSize: 7, alignment: 'right'},
                     ],
                     ...dados,
                 ]

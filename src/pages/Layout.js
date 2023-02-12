@@ -138,7 +138,7 @@ export default function Layout() {
     { name: 'Extrato', to: '/extratos', icon: <PeopleIcon /> },
     { name: 'Vdas Emissão', to: '/vdaemissao', icon: <PeopleIcon /> },    
     { name: 'Vdas Vencimento', to: '/vdavencimento', icon: <AssignmentReturnedIcon /> },    
-    { name: 'Extrato Convênio', to: '/extAdmin', icon: <AssignmentReturnedIcon /> },   
+    { name: 'Extrato Admin', to: '/extAdmin', icon: <AssignmentReturnedIcon /> },   
     { name: 'Compras Servidor', to: '/cmpservidor', icon: <AssignmentReturnedIcon /> },
     { name: 'Importa Servidor', to: '/altpassword', icon: <AssignmentReturnedIcon /> },    
   ];
