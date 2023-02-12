@@ -88,10 +88,11 @@ function PdfCmpVenc() {
         return [
             {text: venda.parIdCompra, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.parNroParcela, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.usrMatricula, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.cnvNomFantasia, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao + 1).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(venda.parVctParcela + 1).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: moment(venda.parVctParcela).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
             {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.parVlrParcela), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
@@ -107,6 +108,7 @@ function PdfCmpVenc() {
                     [
                         {text: 'ID', style: 'tableHeader', fontSize: 8},
                         {text: 'PARC', style: 'tableHeader', fontSize: 8},
+                        {text: 'MATRICULA', style: 'tableHeader', fontSize: 8},
                         {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 8},  
                         {text: 'CONVENIO', style: 'tableHeader', fontSize: 8},
                         {text: 'EMISSÃO', style: 'tableHeader', fontSize: 8},

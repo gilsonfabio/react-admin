@@ -88,6 +88,7 @@ function PdfVctCompras() {
         return [
             {text: venda.parIdCompra, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.parNroParcela, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.usrMatricula, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: venda.cnvNomFantasia, fontSize: 8, margin: [0, 2, 0, 2]},
             {text: moment(venda.cmpEmissao + 1).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
@@ -102,11 +103,12 @@ function PdfVctCompras() {
         {
             table: {
                 headerRows: 1,
-                widths: [30, 30, 140, 100, 50, 60, 70],
+                widths: [30, 30, 70, 140, 100, 50, 60, 70],
                 body: [
                     [
                         {text: 'ID', style: 'tableHeader', fontSize: 8},
                         {text: 'PARC', style: 'tableHeader', fontSize: 8},
+                        {text: 'MATRICULA', style: 'tableHeader', fontSize: 8},
                         {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 8},  
                         {text: 'CONVENIO', style: 'tableHeader', fontSize: 8},
                         {text: 'EMISSÃO', style: 'tableHeader', fontSize: 8},
