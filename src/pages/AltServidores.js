@@ -178,6 +178,7 @@ export default function AltServidores() {
         setUsrPai(response.data[0].usrPai);
         setUsrMae(response.data[0].usrMae);
         setUsrPassword(response.data[0].usrPassword);
+        setUsrCartao(response.data[0].usrCartao);
 
         setDatNasc(moment(response.data[0].usrNascimento).format('L'));
     })
