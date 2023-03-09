@@ -148,7 +148,7 @@ function PdfCnvContrato() {
                     'A Associação por meio deste, se obriga a fornecer o Cartão CALDASCARD para operações de crédito nos estabelecimentos conveniados com a Associação Cultural,',
                     'Esportiva e Social dos Servidores Públicos Municipais de Caldas Novas.\n\n',
                     {text: 'Parágrafo 1º', fontSize: 10, bold: true},
-                    ': A Associação poderá conferir ao CONTRATANTE um crédito de até 30% (trinta por cento) do salário-bruto, aferido pelo último demonstrativo de pagamento salarial,',
+                    ': A Associação poderá conferir ao CONTRATANTE um crédito de até 30% (trinta por cento) do salário-liquido, aferido pelo último demonstrativo de pagamento salarial,',
                     'no sistema parcelado e em caso de comprometimento deste percentual, poderá por analise da administradora, conceder mais 15% (quinze por cento) no sistema rotativo',
                     '(uma vez) para compra exclusiva de alimentos, remédios e itens de primeira necessidade, conforme regras do estatuto sindical.\n\n',
                     {text: 'Parágrafo 2º', fontSize: 10, bold: true},
