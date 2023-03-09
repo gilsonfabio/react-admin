@@ -126,6 +126,7 @@ export default function VdaEmissao() {
       <div className={classes.cadastrar}>      
         <TextField 
           className={classes.input}
+          type="date"
           variant="outlined"
           margin="normal"
           id="datInicio"
@@ -138,6 +139,7 @@ export default function VdaEmissao() {
 
         <TextField 
           className={classes.input}
+          type="date"
           variant="outlined"
           margin="normal"
           id="datFinal"

@@ -572,7 +572,7 @@ function ImpFicha() {
                     body: [
                         [
                             { 
-                                text: `Observações ${usrObsBloqueio}`,
+                                text: `Observações `,
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true,                                

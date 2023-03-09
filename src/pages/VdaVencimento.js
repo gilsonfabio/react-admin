@@ -136,6 +136,7 @@ export default function VdaVencimento() {
       <div className={classes.cadastrar}>      
         <TextField 
           className={classes.input}
+          type="date"
           variant="outlined"
           margin="normal"
           id="datInicio"
@@ -148,6 +149,7 @@ export default function VdaVencimento() {
 
         <TextField 
           className={classes.input}
+          type="date"
           variant="outlined"
           margin="normal"
           id="datFinal"
