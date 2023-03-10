@@ -103,6 +103,7 @@ function ImpFicha() {
     const [usrAdmissao,  setUsrAdmissao] = useState('');
     const [usrSalLiquido,  setUsrSalLiquido] = useState('');
     const [usrSalBruto,  setUsrSalBruto] = useState('');
+    const [usrSalBase,  setUsrSalBase] = useState('');
     const [usrLimite,  setUsrLimite] = useState('');
     const [usrTipContrato,  setUsrTipContrato] = useState('');
     const [usrFonTrabalho,  setUsrFonTrabalho] = useState('');
@@ -500,7 +501,7 @@ function ImpFicha() {
                                 bold: true
                             },
                             { 
-                                text: `Salario Base:`+ Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(salarioUsr), alignment: 'left', 
+                                text: `Salario Base:`+ Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(usrSalBase), alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -769,6 +770,7 @@ function ImpFicha() {
             setUsrAdmissao(response.data[0].usrAdmissao);
             setUsrSalLiquido(response.data[0].usrSalLiquido);
             setUsrSalBruto(response.data[0].usrSalBruto);
+            setUsrSalBase(response.data[0].usrSalBase);
             setUsrTipContrato(response.data[0].usrTipContrato);
             setUsrFonTrabalho(response.data[0].usrFonTrabalho);
             setUsrCargo(response.data[0].usrCargo);
