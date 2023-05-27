@@ -77,6 +77,12 @@ function ImpFicha() {
 
     const params = useParams();  
 
+    const dataFormatada = new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'full',
+        timeStyle: 'long',
+        timeZone: 'America/Sao_Paulo',
+    });
+
     const [datInicial, setDatInicial] = useState();
     const [datFinal, setDatFinal] = useState();
 
@@ -164,7 +170,7 @@ function ImpFicha() {
         return [
             {text: fil.filId, fontSize: 8, margin: [0, 2, 0, 2] },
             {text: fil.filNome, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(fil.filNascimento).format('DD-MM-YYYY') , fontSize: 8, margin: [0, 2, 0, 2]}
+            {text: moment(fil.filNascimento).utc().locale('pt-br').format('L'), fontSize: 8, margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -250,7 +256,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento: ${moment(usrNascimento).format('DD-MM-YYYY')}` ,alignment: 'left', 
+                                text: `Nascimento: ${moment(usrNascimento).utc().locale('pt-br').format('L')}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -280,7 +286,7 @@ function ImpFicha() {
                             },
 
                             { 
-                                text: `Nasc Conjuge: ${moment(usrNasConjuge).format('DD-MM-YYYY')}`, alignment: 'left', 
+                                text: `Nasc Conjuge: ${moment(usrNasConjuge).utc().locale('pt-br').format('L')}`, alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
@@ -479,7 +485,7 @@ function ImpFicha() {
                                 bold: true,                                
                             },
                             { 
-                                text: `Data Admissão: ${moment(usrAdmissao).format('DD-MM-YYYY')}`, 
+                                text: `Data Admissão: ${moment(usrAdmissao).utc().locale('pt-br').format('L')}`, 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true
