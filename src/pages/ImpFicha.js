@@ -164,7 +164,7 @@ function ImpFicha() {
         return [
             {text: fil.filId, fontSize: 8, margin: [0, 2, 0, 2] },
             {text: fil.filNome, fontSize: 8, margin: [0, 2, 0, 2]},
-            {text: moment(fil.filNascimento).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]}
+            {text: moment(fil.filNascimento).format('DD-MM-YYYY') , fontSize: 8, margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -250,7 +250,7 @@ function ImpFicha() {
                             },
                                                           
                             { 
-                                text: `Nascimento: ${usrNascimento}` ,alignment: 'left', 
+                                text: `Nascimento: ${moment(usrNascimento).format('DD-MM-YYYY')}` ,alignment: 'left', 
                                 border:[true, false, true, true],
                                 fontSize: 9,
                                 bold: true

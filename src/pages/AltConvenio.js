@@ -108,6 +108,7 @@ export default function AltConvenio() {
   const [cnvCep, setCep] = useState('');
   const [cnvPassword, setPassword] = useState('');
   const [cnvCanPassword, setCanPassword] = useState('');
+  const [cnvQtdParc, setCnvQtdParc] = useState('');
 
   const [atividades, setAtividades] = useState([]);
 
@@ -129,7 +130,8 @@ export default function AltConvenio() {
       cnvEstado,
       cnvCep,
       cnvPassword,
-      cnvCanPassword
+      cnvCanPassword,
+      cnvQtdParc
       }).then(() => {
         alert('Convênio alterado com sucesso!')
       }).catch(() => {
@@ -159,7 +161,8 @@ export default function AltConvenio() {
         setCep(response.data[0].cnvCep);
         setPassword(response.data[0].cnvPassword);
         setCanPassword(response.data[0].cnvCanPassword);
-
+        setCnvQtdParc(response.data[0].cnvQtdParc);
+        
         api.get(`atividades`).then(resp => {
             setAtividades(resp.data);
             
@@ -396,6 +399,21 @@ export default function AltConvenio() {
                 value={cnvCanPassword} 
                 onChange={(e) => {setCanPassword(e.target.value)}} 
             />
+          </div>
+          <div className={classes.left}>
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="qtdParc"
+                label="Informe Qtde Parcelas"
+                name="qtdParc"
+                autoFocus                
+                value={cnvQtdParc} 
+                onChange={(e) => {setCnvQtdParc(e.target.value)}} 
+            />            
           </div>
         </div>  
       </TabPanel>

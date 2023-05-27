@@ -109,6 +109,7 @@ export default function AltConvenio() {
   const [cnvCidade, setCidade] = useState('');
   const [cnvEstado, setEstado] = useState('');
   const [cnvCep, setCep] = useState('');
+  const [cnvQtdParc, setCnvQtdParc] = useState('');
   
   //const [convenios, setConvenios] = useState([]);
   const [atividades, setAtividades] = useState([]);
@@ -130,7 +131,8 @@ export default function AltConvenio() {
       cnvBairro,
       cnvCidade,
       cnvEstado,
-      cnvCep    
+      cnvCep,
+      cnvQtdParc    
     }).then(() => {
       alert('Convênio cadastrado com sucesso!')
     }).catch(() => {
@@ -377,6 +379,21 @@ export default function AltConvenio() {
                 value={cnvCanPassword} 
                 onChange={(e) => {setCanPassword(e.target.value)}} 
             />
+          </div>
+          <div className={classes.left}>
+            <TextField 
+                className={classes.input}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="qtdParc"
+                label="Informe Qtde de Parcelas"
+                name="qtdParc"
+                autoFocus                
+                value={cnvQtdParc} 
+                onChange={(e) => {setCnvQtdParc(e.target.value)}} 
+            />            
           </div>
         </div>  
       </TabPanel>

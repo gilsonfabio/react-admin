@@ -82,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 8,
     width: 430,
   },
+  label: {
+    fontSize: 10,
+  },
   
 }));
 
@@ -93,6 +96,7 @@ export default function AltServidores() {
   const [usrObsBloqueio, setUsrObsBloqueio] = useState('');
   const [usrCartao, setUsrCartao] = useState('');
   const [usrStatus, setUsrStatus] = useState('');
+  const [desStatus, setDesStatus] = useState('');
 
   const status = [
       {'staId':'A', 'staDescricao':'LIBERADO' },
@@ -115,6 +119,11 @@ export default function AltServidores() {
         setUsrObsBloqueio(response.data[0].usrObsBloqueio);
         setUsrCartao(response.data[0].usrCartao);
         setUsrStatus(response.data[0].usrStatus);
+        if (response.data[0].usrStatus === 'A') {
+          setDesStatus('LIBERADO')
+        }else {
+          setDesStatus('BLOQUEADO')
+        }
     })
   },[]);
   
@@ -161,6 +170,7 @@ export default function AltServidores() {
       <TabPanel value={value} index={0}>
         <div className={classes.dados}>
           <div className={classes.left}>
+          <label className={classes.label}>Dados do Servidor</label>
             <TextField 
               className={classes.input}
               variant="outlined"
@@ -189,6 +199,7 @@ export default function AltServidores() {
             />        
           </div>
           <div className={classes.right}>
+            <label className={classes.label}>Status Atual: {desStatus}</label>
             <Select 
                 className={classes.select}
                 variant="outlined"
