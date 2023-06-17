@@ -151,9 +151,14 @@ function PdfCmpVenc() {
            orgId = '999';
         }
 
+        console.log(dataInicial);
+        console.log(dataFinal);
+        console.log(orgId);
+
+
         if (orgId !== '999') {
             console.log('1')
-            api.get(`pdfEmiOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
+            api.get(`pdfVctOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
                 setVendas(resp.data);  
             })
         }else {

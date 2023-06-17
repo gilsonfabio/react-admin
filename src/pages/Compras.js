@@ -184,7 +184,6 @@ export default function Compras() {
             <MenuItem key={row.orgId} value={row.orgId}>{row.orgDescricao}</MenuItem>
           ))}
         </Select>   
-
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
             <Link to={`/pdfCmpVenc/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
