@@ -103,7 +103,7 @@ function PdfCmpVenc() {
         {
             table: {
                 headerRows: 1,
-                widths: [20, 10, 100, 100, 50, 50, 70],
+                widths: [20, 10, 50, 100, 100, 50, 50, 50],
                 body: [
                     [
                         {text: 'ID', style: 'tableHeader', fontSize: 7},
@@ -147,7 +147,7 @@ function PdfCmpVenc() {
         let dataInicial = params.datVencto;
         let dataFinal = params.datVencto;
         let orgId = params.orgao;
-        if (orgId !== '') {
+        if (orgId === '') {
            orgId = '999';
         }
 
