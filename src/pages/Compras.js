@@ -191,7 +191,7 @@ export default function Compras() {
         </div>
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/arqCmpTxt/${datVencto}/${orgao}`} className={classes.link}>Arquivo TXT</Link>        
+            <Link to={`/ArqCmpTxt/${datVencto}/${orgao}`} className={classes.link}>Arquivo TXT</Link>        
           </Button>
         </div>
         <div className={classes.totaliza}>

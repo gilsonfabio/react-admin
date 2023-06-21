@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { Button } from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
@@ -38,6 +39,10 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
+    table: {
+      minWidth: 700,
+    },
+
     buttonArea: {
         width: '100vw',
         height: '60vh',
@@ -45,6 +50,22 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    cadastrar: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: 40,
+      padding: 10,
+      hover: {
+        cursor: 'pointer',
+      }
+    },
+  
+    btnCadastrar: {
+      height: 50,
     },
   
     button: {
@@ -91,65 +112,84 @@ const useStyles = makeStyles({
 function ArqCmpTxt() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
-
+    const [orgDescricao, setOrgDescricao] = useState('');
+    const [orgao, setOrgao] = useState('');
+    const [idOrg, setIdOrg] = useState('');
+    const [datVencto, setDatVencto] = useState('');
+     
     const params = useParams();  
-
+     
     const headers = [
         {label:'Matricula', key: 'Matricula'},
         {label:'Mome Servidor', key: 'Nome Servidor'},
         {label:'Valr Total', key: 'Valor Total'},
     ];
 
+    const nomArquivo = orgDescricao + params.datVencto + '.csv';
+
     const csvReport = {
-        filename:'Arquivo.csv',
+        filename: nomArquivo,
         Headers: headers,
         data: vendas
     };
     
     useEffect(() => {
-        let dataInicial = params.datVencto;
+        setDatVencto(params.datVencto);
+        setOrgao(params.orgao);
+        let datInicial = params.datVencto;
         let orgId = params.orgao;     
-        api.get(`downloadTxt/${dataInicial}/${orgId}`).then(resp => {
+        api.get(`downloadTxt/${datInicial}/${orgId}`).then(resp => {
             setVendas(resp.data);  
         })
+        
+        setIdOrg(params.orgao);
+        api.get(`searchOrg/${idOrg}`).then(response => {
+          setOrgDescricao(response.data.orgDescricao);
+      })
+
     },[]);
 
     return (
 
         <div>
-            <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Matricula</StyledTableCell>
-            <StyledTableCell align="left">Servidor</StyledTableCell>
-            <StyledTableCell align="left">Total Compras</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {vendas.map((row) => (
-            <StyledTableRow key={row.usrMatricula} >
-              <StyledTableCell align="left" component="th" scope="row">{row.usrMAtricula}</StyledTableCell>
-              <StyledTableCell align="left">{row.usrNome}</StyledTableCell>
-              <StyledTableCell align="left">{row.usrVlrUsado}</StyledTableCell>
-              <StyledTableCell align="right">
-              <Link to={() => {}} >
-                <EditIcon />
-              </Link>                         
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-      </TableContainer> 
-            <div>
-                <CSVLink {...csvReport }>Exporta CSV</CSVLink>
-            </div>             
+          <div className={classes.cadastrar}>
+            <Button variant="contained" color="primary">
+              <Link to={`/PdfCmpExt/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
+            </Button>
+          </div>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="left">Matricula</StyledTableCell>
+                  <StyledTableCell align="left">Servidor</StyledTableCell>
+                  <StyledTableCell align="left">Total Compras</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {vendas.map((row) => (
+                  <StyledTableRow key={row.usrMatricula} >
+                  <StyledTableCell align="left" component="th" scope="row">{row.usrMAtricula}</StyledTableCell>
+                  <StyledTableCell align="left">{row.usrNome}</StyledTableCell>
+                  <StyledTableCell align="left">{row.usrVlrUsado}</StyledTableCell>
+                  <StyledTableCell align="right">
+                  <Link to={() => {}} >
+                    <EditIcon />
+                  </Link>                         
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <IconButton aria-label="delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer> 
+          <div>
+            <CSVLink {...csvReport }>Exporta CSV</CSVLink>
+          </div>             
         </div>
     );
 }
