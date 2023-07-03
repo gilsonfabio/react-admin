@@ -64,7 +64,7 @@ const useStyles = makeStyles({
 function PdfCmpVenc() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
-
+    const [orgDescricao, setOrgDescricao] = useState('');
     const params = useParams();  
 
     const [datPrint, setDatPrint] = useState();
@@ -76,7 +76,7 @@ function PdfCmpVenc() {
     //const horNow = moment().format('hh:mm:ss');  
     
     const reportTitle = [
-        {text: `Relatório de Vendas Vencimento data: ${datPrint}`,fontSize: 15,bold: true,margin: [15, 20, 0, 45]},
+        {text: `Relatório de Vendas Vencimento: ${datPrint} - ${orgDescricao}`,fontSize: 15,bold: true,margin: [15, 20, 0, 45]},
     ];
 
     const dados = vendas.map((venda) => {
@@ -86,8 +86,8 @@ function PdfCmpVenc() {
             {text: venda.usrMatricula, fontSize: 7, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 7, margin: [0, 2, 0, 2]},
             {text: venda.cnvNomFantasia, fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: moment(venda.parVctParcela).format('DD-MM-YYYY'), fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: moment(venda.cmpEmissao).utc().locale('pt-br').format('L'), fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: moment(venda.parVctParcela).utc().locale('pt-br').format('L'), fontSize: 7, margin: [0, 2, 0, 2]},
             {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.parVlrParcela), fontSize: 7, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
@@ -139,7 +139,7 @@ function PdfCmpVenc() {
     };
    
     useEffect(() => {
-        setDatPrint(params.datVencto);
+        setDatPrint(moment(params.datVencto).utc().locale('pt-br').format('L'));
         let dataInicial = params.datVencto;
         let dataFinal = params.datVencto;
         let orgId = params.orgao;
@@ -154,6 +154,11 @@ function PdfCmpVenc() {
 
         if (orgId !== '999') {
             console.log('1')
+            api.get(`searchOrg/${orgId}`).then(res => {
+                setOrgDescricao(res.data[0].orgDescricao);  
+            })
+
+
             api.get(`pdfVctOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
                 setVendas(resp.data);  
             })

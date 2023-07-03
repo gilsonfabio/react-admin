@@ -64,6 +64,12 @@ const useStyles = makeStyles({
 function PdfVctCompras() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
+    
+    const [datIniPrint, setIniPrint] = useState('');
+    const [datFimPrint, setFimPrint] = useState('');
+    const [nomConvenio, setNomConvenio] = useState('');
+    const [nomServidor, setNomServidor] = useState('');
+
 
     const params = useParams();  
 
@@ -77,11 +83,20 @@ function PdfVctCompras() {
     
     const reportTitle = [
         {
-            text: `Relatório de Vendas Vencimento`,
+            text: `Relatório de Vendas Vencimento - Periodo: ${datIniPrint} a ${datFimPrint}`,
             fontSize: 15,
             bold: true,
             margin: [15, 20, 0, 45],
-        }       
+        },
+    ];
+    const subTitle = [    
+        {
+            text: `Convênio: ${nomConvenio} - Servidor: ${nomServidor} `,
+            fontSize: 12,
+            bold: true,
+            margin: [0, 10, 0, 10],
+        },
+                
     ];
 
     const dados = vendas.map((venda) => {
@@ -91,8 +106,8 @@ function PdfVctCompras() {
             {text: venda.usrMatricula, fontSize: 7, margin: [0, 2, 0, 2]},
             {text: venda.usrNome, fontSize: 7, margin: [0, 2, 0, 2]},
             {text: venda.cnvNomFantasia, fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: moment(venda.cmpEmissao).format('DD-MM-YYYY'), fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: moment(venda.parVctParcela).format('DD-MM-YYYY'), fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: moment(venda.cmpEmissao).utc().locale('pt-br').format('L'), fontSize: 7, margin: [0, 2, 0, 2]},
+            {text: moment(venda.parVctParcela).utc().locale('pt-br').format('L'), fontSize: 7, margin: [0, 2, 0, 2]},
             {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.parVlrParcela), fontSize: 7, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
@@ -138,25 +153,38 @@ function PdfVctCompras() {
         pageMargins: [15, 50, 15, 40],
 
         header: [reportTitle],
-        content: [details],
+        content: [subTitle, details],
         footer: Rodape,
 
     };
    
     useEffect(() => {
+        setIniPrint(moment(params.datInicio).utc().locale('pt-br').format('L'));
+        setFimPrint(moment(params.datFinal).utc().locale('pt-br').format('L'));
         let dataInicio = params.datInicio;
         let dataFinal = params.datFinal;
         let cnpjCnv = params.convenio;
         let cpfSrv = params.servidor;
-        
+       
         console.log('data incial:', dataInicio);
         console.log('data incial:', dataFinal);
         console.log('convenio:', cnpjCnv);
         console.log('servidor:', cpfSrv);
-
+        
         api.get(`pdfVctCompras/${dataInicio}/${dataFinal}/${cnpjCnv}/${cpfSrv}`).then(resp => {
-           setVendas(resp.data);  
+            setVendas(resp.data); 
+            setNomConvenio(resp.data[0].cnvNomFantasia);  
+            setNomServidor(resp.data[0].usrNome); 
         })
+
+        if (cnpjCnv === '0') {
+            setNomConvenio(' ');  
+        }
+
+        if (cpfSrv === '0') {
+            setNomServidor(' '); 
+        }
+
     },[]);
 
     function emitePdf() {
