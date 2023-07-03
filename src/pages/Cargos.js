@@ -14,6 +14,7 @@ import api from '../services/api';
 import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { TextField } from '@material-ui/core';
 
 import MenBarra from '../components/MenBarra/MenBarra';
 
@@ -40,6 +41,10 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
   cadastrar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 70,
     padding: 10,
   },
@@ -56,7 +61,7 @@ const useStyles = makeStyles({
 export default function Cargos() {
   const classes = useStyles();
   const [cargos, setCargos] = useState([]);
-  
+  const [search, setSearch] = useState(['']);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,13 +82,31 @@ export default function Cargos() {
     navigate(-1);
   }
 
+  useEffect(() => {
+    api.get(`buscargo/${search}`).then(response => {
+        setCargos(response.data);
+     
+    })
+  },[search]);
+
   return (
     <div>
       <MenBarra />
       <div className={classes.cadastrar}>
-      <Button variant="contained" color="primary">
-        <Link to={`/newcargo`} className={classes.link}>Novo Cargo</Link>        
-      </Button>
+        <Button variant="contained" color="primary">
+          <Link to={`/newcargo`} className={classes.link}>Novo Cargo</Link>        
+        </Button>
+        <TextField 
+          className={classes.input}
+          variant="outlined"
+          margin="normal"
+          id="descricao"
+          label="Busca Cargo"
+          name="descricao"
+          autoFocus                
+          value={search} 
+          onChange={(e) => {setSearch(e.target.value)}} 
+        />
       </div>
       <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">

@@ -14,6 +14,7 @@ import api from '../services/api';
 import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { TextField } from '@material-ui/core';
 
 import MenBarra from '../components/MenBarra/MenBarra';
 
@@ -40,8 +41,13 @@ const useStyles = makeStyles({
     minWidth: 700,
   },
   cadastrar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 70,
     padding: 10,
+
   },
   link: {
     color: '#fff',
@@ -56,7 +62,7 @@ const useStyles = makeStyles({
 export default function Bairros() {
   const classes = useStyles();
   const [bairros, setBairros] = useState([]);
-  
+  const [search, setSearch] = useState(['']);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,6 +83,13 @@ export default function Bairros() {
     navigate(-1);
   }
 
+  useEffect(() => {
+    api.get(`busbairro/${search}`).then(response => {
+        setBairros(response.data);
+     
+    })
+  },[search]);
+
   return (
     <div>
       <MenBarra />
@@ -84,6 +97,17 @@ export default function Bairros() {
       <Button variant="contained" color="primary">
         <Link to={`/newbairro`} className={classes.link}>Novo Bairro</Link>        
       </Button>
+      <TextField 
+        className={classes.input}
+        variant="outlined"
+        margin="normal"
+        id="descricao"
+        label="Busca Bairro"
+        name="descricao"
+        autoFocus                
+        value={search} 
+        onChange={(e) => {setSearch(e.target.value)}} 
+      />
       </div>
       <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">

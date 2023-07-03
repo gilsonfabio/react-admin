@@ -67,7 +67,7 @@ function PdfCmpVenc() {
 
     const params = useParams();  
 
-    //const [datInicial, setDatInicial] = useState();
+    const [datPrint, setDatPrint] = useState();
     //const [datFinal, setDatFinal] = useState();
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -76,12 +76,7 @@ function PdfCmpVenc() {
     //const horNow = moment().format('hh:mm:ss');  
     
     const reportTitle = [
-        {
-            text: `Relatório de Vendas Vencimento`,
-            fontSize: 15,
-            bold: true,
-            margin: [15, 20, 0, 45],
-        }       
+        {text: `Relatório de Vendas Vencimento data: ${datPrint}`,fontSize: 15,bold: true,margin: [15, 20, 0, 45]},
     ];
 
     const dados = vendas.map((venda) => {
@@ -144,6 +139,7 @@ function PdfCmpVenc() {
     };
    
     useEffect(() => {
+        setDatPrint(params.datVencto);
         let dataInicial = params.datVencto;
         let dataFinal = params.datVencto;
         let orgId = params.orgao;
