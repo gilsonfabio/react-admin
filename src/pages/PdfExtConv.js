@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-//import moment from 'moment';
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -64,6 +64,8 @@ function PdfExtConv() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
 
+    const [datPrint, setDatPrint] = useState('');
+
     const params = useParams();  
 
     //const [datInicial, setDatInicial] = useState();
@@ -78,14 +80,14 @@ function PdfExtConv() {
     
     const reportTitle = [
         {
-            text: `Relatório de Vendas Vencimento`,
+            text: `Relatório Extrato Administrativo - Vencimento: ${datPrint}`,
             fontSize: 15,
             bold: true,
             margin: [15, 20, 0, 45],
         }       
     ];
 
-    const arrayConvenios = [];
+    //const arrayConvenios = [];
 
     const dados = vendas.map((venda) => {
         return [
@@ -99,7 +101,10 @@ function PdfExtConv() {
         ]              
     });
 
-    const totCompras = arrayConvenios.map(item => item.totCnv).reduce((prev, curr) => prev + curr, 0);
+    const totCompras = vendas.map(item => item.tcnvVlrTotal).reduce((prev, curr) => prev + curr, 0);
+    const totTaxa = vendas.map(item => item.tcnvVlrTaxa).reduce((prev, curr) => prev + curr, 0);
+    const totLiquido = vendas.map(item => item.tcnvVlrLiquido).reduce((prev, curr) => prev + curr, 0);
+    const totSistema = vendas.map(item => item.tcnvVlrSistema).reduce((prev, curr) => prev + curr, 0);
 
     const details = [
         {
@@ -127,8 +132,11 @@ function PdfExtConv() {
         return [  
             {
                 columns: [
-                    {text: 'Total de Vendas..............' + Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totCompras), alignment: 'left', fontSize: 10, margin: [10,0,0,0]},
-                    {text: 'Página: ' + currentPage + ' / ' + pageCount, alignment: 'right', fontSize: 10, margin: [0,0,20,0] }
+                    {text: 'Tot.Vendas:' + Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totCompras), alignment: 'left', fontSize: 8, margin: [10,0,0,0]},
+                    {text: 'Tot.Taxa:' + Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totTaxa), alignment: 'left', fontSize: 8, margin: [10,0,0,0]},
+                    {text: 'T.Liquido:' + Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totLiquido), alignment: 'left', fontSize: 8, margin: [10,0,0,0]},
+                    {text: 'T.Sistema:' + Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totSistema), alignment: 'left', fontSize: 8, margin: [10,0,0,0]},
+                    {text: 'Página: ' + currentPage + ' / ' + pageCount, alignment: 'right', fontSize: 8, margin: [0,0,20,0] }
                 ],                
             },                    
         ]
@@ -145,8 +153,8 @@ function PdfExtConv() {
     };
    
     useEffect(() => {
-        let dataInicial = params.datVencto;
-
+        setDatPrint(moment(params.datVencto).utc().locale('pt-br').format('L'));
+        let dataInicial = params.datVencto;        
         console.log(dataInicial);
         //console.log(dataFinal);
 
