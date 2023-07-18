@@ -65,10 +65,12 @@ function PdfCmpVenc() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
     const [orgDescricao, setOrgDescricao] = useState('');
+    const [idOrg, setIdOrg] = useState('');
     const params = useParams();  
 
     const [dataInicial, setDatInicial] = useState();
     //const [datFinal, setDatFinal] = useState();
+    const [datPrint, setDatPrint] = useState();
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -76,21 +78,16 @@ function PdfCmpVenc() {
     //const horNow = moment().format('hh:mm:ss');  
     
     const reportTitle = [
-        {
-            text: `Relatório de Vendas Vencimento - Orgão:`,
-            fontSize: 15,
-            bold: true,
-            margin: [15, 20, 0, 45],
-        }       
+        {text: `Relatório de Vendas Vencimento: ${datPrint} - Orgão:${idOrg} - ${orgDescricao}`,fontSize: 12,bold: true,margin: [15, 20, 0, 45]},               
     ];
 
     const dados = vendas.map((venda) => {
         return [
-            {text: venda.usrId, fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: venda.usrMatricula, fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: venda.usrNome, fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: moment(dataInicial).format('DD-MM-YYYY'), fontSize: 7, margin: [0, 2, 0, 2]},
-            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.usrVlrUsado), fontSize: 7, alignment: 'right', margin: [0, 2, 0, 2]}
+            {text: venda.usrId, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.usrMatricula, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: venda.usrNome, fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: moment(dataInicial).format('DD-MM-YYYY'), fontSize: 8, margin: [0, 2, 0, 2]},
+            {text: Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(venda.usrVlrUsado), fontSize: 8, alignment: 'right', margin: [0, 2, 0, 2]}
         ]              
     });
 
@@ -100,14 +97,14 @@ function PdfCmpVenc() {
         {
             table: {
                 headerRows: 1,
-                widths: [20, 20, 100, 50, 50],
+                widths: [50, 50, 150, 50, 50],
                 body: [
                     [
-                        {text: 'ID', style: 'tableHeader', fontSize: 7},
-                        {text: 'MATRICULA', style: 'tableHeader', fontSize: 7},
-                        {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 7},  
-                        {text: 'VENCIMENTO', style: 'tableHeader', fontSize: 7},                                                                      
-                        {text: 'TOTAL COMPRA', style: 'tableHeader', fontSize: 7, alignment: 'right'},
+                        {text: 'ID', style: 'tableHeader', fontSize: 8},
+                        {text: 'MATRICULA', style: 'tableHeader', fontSize: 8},
+                        {text: 'NOME SERVIDOR(A)', style: 'tableHeader', fontSize: 8},  
+                        {text: 'VENCIMENTO', style: 'tableHeader', fontSize: 8},                                                                      
+                        {text: 'TOTAL COMPRA', style: 'tableHeader', fontSize: 8, alignment: 'right'},
                     ],
                     ...dados,
                 ]
@@ -139,11 +136,19 @@ function PdfCmpVenc() {
    
     useEffect(() => {
         setDatInicial(params.datVencto);
+
+        setDatPrint(moment(params.datVencto).utc().locale('pt-br').format('L'));
+
         let datInicial = params.datVencto;
         let dataFinal = params.datVencto;
         let orgId = params.orgao;
-        //setOrgDescricao(params.orgDescricao);
+        
+        setIdOrg(orgId);
+        api.get(`searchOrg/${idOrg}`).then(response => {
+          setOrgDescricao(response.data.orgDescricao);
+        })
 
+        //setOrgDescricao(params.orgDescricao);
         //console.log(dataInicial);
         //console.log(dataFinal);
         //console.log(orgId);
@@ -151,6 +156,7 @@ function PdfCmpVenc() {
         api.get(`relFecTxt/${datInicial}/${orgId}`).then(resp => {
             setVendas(resp.data);  
         })
+
     },[]);
 
     function emitePdf() {
@@ -159,12 +165,13 @@ function PdfCmpVenc() {
     };
 
     return (
-        <>
+        <div>
+            <spam>Relatorio por vencimento - Orgão: {orgDescricao}</spam>
             <button className={classes.button} type="button" onClick={() => emitePdf()}>
                 <PictureAsPdfIcon />
             </button> 
             
-        </>
+        </div>
     );
 }
 
