@@ -61,15 +61,15 @@ const useStyles = makeStyles({
 
 });
 
-function PdfCmpVenc() {
+function PdfCmpExt() {
     const classes = useStyles();
     const [vendas, setVendas] = useState([]);
-    const [orgDescricao, setOrgDescricao] = useState('');
+    const [orgao, setOrgao] = useState([]);
     const [idOrg, setIdOrg] = useState('');
+    const [orgDescricao, setOrgDescricao] = useState('');
     const params = useParams();  
 
     const [dataInicial, setDatInicial] = useState();
-    //const [datFinal, setDatFinal] = useState();
     const [datPrint, setDatPrint] = useState();
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -97,7 +97,7 @@ function PdfCmpVenc() {
         {
             table: {
                 headerRows: 1,
-                widths: [50, 50, 150, 50, 50],
+                widths: [50, 50, 150, 55, 50],
                 body: [
                     [
                         {text: 'ID', style: 'tableHeader', fontSize: 8},
@@ -140,18 +140,9 @@ function PdfCmpVenc() {
         setDatPrint(moment(params.datVencto).utc().locale('pt-br').format('L'));
 
         let datInicial = params.datVencto;
-        let dataFinal = params.datVencto;
         let orgId = params.orgao;
-        
-        setIdOrg(orgId);
-        api.get(`searchOrg/${idOrg}`).then(response => {
-          setOrgDescricao(response.data.orgDescricao);
-        })
-
-        //setOrgDescricao(params.orgDescricao);
-        //console.log(dataInicial);
-        //console.log(dataFinal);
-        //console.log(orgId);
+        console.log('Codigo Orgão:',orgId);  
+        setIdOrg(params.orgao); 
 
         api.get(`relFecTxt/${datInicial}/${orgId}`).then(resp => {
             setVendas(resp.data);  
@@ -159,14 +150,22 @@ function PdfCmpVenc() {
 
     },[]);
 
-    function emitePdf() {
-             
+    useEffect(() => {
+        api.get(`searchOrg/${idOrg}`).then(response => {
+            setOrgao(response.data)
+            setOrgDescricao(response.data[0].orgDescricao)
+            console.log(orgDescricao)
+        }) 
+    },[idOrg]);
+
+    function emitePdf() {        
+       
         pdfMake.createPdf(docDefinition).open();
     };
 
     return (
         <div>
-            <spam>Relatorio por vencimento - Orgão: {orgDescricao}</spam>
+            <spam>Relatorio por Vencimento - Orgão: {idOrg}</spam>
             <button className={classes.button} type="button" onClick={() => emitePdf()}>
                 <PictureAsPdfIcon />
             </button> 
@@ -175,4 +174,4 @@ function PdfCmpVenc() {
     );
 }
 
-export default PdfCmpVenc;
+export default PdfCmpExt;
