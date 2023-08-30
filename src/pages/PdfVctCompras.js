@@ -91,7 +91,7 @@ function PdfVctCompras() {
     ];
     const subTitle = [    
         {
-            text: `Convênio: ${nomConvenio} - Servidor: ${nomServidor} `,
+            text: `Convênio: ${nomConvenio} `,
             fontSize: 12,
             bold: true,
             margin: [0, 10, 0, 10],
