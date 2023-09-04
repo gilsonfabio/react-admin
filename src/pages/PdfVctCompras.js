@@ -153,7 +153,7 @@ function PdfVctCompras() {
         pageMargins: [15, 50, 15, 40],
 
         header: [reportTitle],
-        content: [subTitle, details],
+        content: [details],
         footer: Rodape,
 
     };
