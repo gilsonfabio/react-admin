@@ -21,6 +21,7 @@ import LocalPrintshopIcon from '@material-ui/icons/LocalPrintshop';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import MenBarra from '../components/MenBarra/MenBarra';
 import { TextField } from '@material-ui/core';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -159,6 +160,7 @@ export default function Servidores() {
             <StyledTableCell align="right">Status</StyledTableCell>
             <StyledTableCell align="right">Ficha</StyledTableCell>
             <StyledTableCell align="right">Contrato</StyledTableCell>
+            <StyledTableCell align="right">Permissão</StyledTableCell>
             <StyledTableCell align="right">Editar</StyledTableCell>
             <StyledTableCell align="right">Excluir</StyledTableCell>
           </TableRow>
@@ -193,6 +195,11 @@ export default function Servidores() {
               <Link to={`/pdfcnvcontrato/${row.usrId}`} >
                 <LocalPrintshopIcon />
               </Link>                         
+              </StyledTableCell>
+              <StyledTableCell align="right">
+              <Link to={`/altpermissao/${row.usrId}`} >
+                <AttachFileIcon />
+              </Link>                          
               </StyledTableCell>
               <StyledTableCell align="right">
               <Link to={`/altservidor/${row.usrId}`} >

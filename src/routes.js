@@ -41,6 +41,7 @@ import NewBairro from './pages/NewBairro';
 import Servidores from './pages/Servidores';
 import AltServidor from './pages/AltServidores';
 import NewServidor from './pages/NewServidor';
+import AltPermissao from './pages/AltPermissao';
 
 import Filiacao from './pages/Filiacao';
 import Informacoes from './pages/Informacoes';
@@ -115,6 +116,7 @@ export default function MainRoutes() {
             <Route path="/servidores" element={<Servidores />} />
             <Route path="/altservidor/:usrId" element={<AltServidor/>} />
             <Route path="/newservidor" element={<NewServidor/>} />
+            <Route path="/altpermissao/:usrId" element={<AltPermissao/>} />
 
             <Route path="/filiacao/:usrId" element={<Filiacao/>} />
             <Route path="/informacoes/:usrId" element={<Informacoes/>} />

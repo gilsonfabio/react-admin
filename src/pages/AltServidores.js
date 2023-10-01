@@ -125,7 +125,6 @@ export default function AltServidores() {
   const [usrNasConjuge, setUsrNasConjuge] = useState('');
   const [usrObsBloqueio, setUsrObsBloqueio] = useState('');
   const [usrCartao, setUsrCartao] = useState('');
-  const [usrPassword, setUsrPassword] = useState('');
   const [usrPai, setUsrPai] = useState('');
   const [usrMae, setUsrMae] = useState('');
 
@@ -177,7 +176,6 @@ export default function AltServidores() {
         setUsrObsBloqueio(response.data[0].usrObsBloqueio);
         setUsrPai(response.data[0].usrPai);
         setUsrMae(response.data[0].usrMae);
-        setUsrPassword(response.data[0].usrPassword);
         setUsrCartao(response.data[0].usrCartao);
 
         setDatNasc(moment(response.data[0].usrNascimento).format('L'));
@@ -244,7 +242,6 @@ export default function AltServidores() {
       usrObsBloqueio,
       usrPai,
       usrMae,
-      usrPassword,
     }).then(() => {
         alert('Servidor alterado com sucesso!')
     }).catch(() => {
@@ -677,8 +674,10 @@ export default function AltServidores() {
               autoFocus                
               value={usrCartao} 
               onChange={(e) => {setUsrCartao(e.target.value)}} 
-            />   
-            <TextField 
+            />                      
+          </div>
+          <div className={classes.right}>
+          <TextField 
               className={classes.input}
               variant="outlined"
               margin="normal"
@@ -690,23 +689,7 @@ export default function AltServidores() {
               autoFocus                
               value={usrObsBloqueio} 
               onChange={(e) => {setUsrObsBloqueio(e.target.value)}} 
-            />            
-          </div>
-          <div className={classes.right}>
-            <TextField 
-                className={classes.input}
-                type="password"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="password"
-                label="Senha Servidor"
-                name="password"
-                autoFocus                
-                value={usrPassword} 
-                onChange={(e) => {setUsrPassword(e.target.value)}} 
-            />
+            />  
           </div>
         </div>
       </TabPanel>
