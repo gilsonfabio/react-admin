@@ -177,7 +177,7 @@ export default function VdaVencimento() {
           variant="outlined"
           margin="normal"
           id="servidor"
-          label="Informe CPF Servidor"
+          label="Informe Matricula Servidor"
           name="servidor"
           autoFocus                
           value={servidor} 
