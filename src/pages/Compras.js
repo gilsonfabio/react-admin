@@ -162,6 +162,7 @@ export default function Compras() {
       <div className={classes.cadastrar}>      
         <TextField 
           className={classes.input}
+          type="date"
           variant="outlined"
           margin="normal"
           id="datVencto"
