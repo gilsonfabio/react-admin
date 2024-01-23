@@ -116,7 +116,8 @@ function ArqCmpTxt() {
     const [orgao, setOrgao] = useState('');
     const [idOrg, setIdOrg] = useState('');
     const [datVencto, setDatVencto] = useState('');
-     
+    const [status , setStatus] = useState(''); 
+
     const params = useParams();  
      
     const headers = [
@@ -136,9 +137,10 @@ function ArqCmpTxt() {
     useEffect(() => {
         setDatVencto(params.datVencto);
         setOrgao(params.orgao);
+        setStatus(params.regStatus);
         let datInicial = params.datVencto;
         let orgId = params.orgao;     
-        api.get(`downloadTxt/${datInicial}/${orgId}`).then(resp => {
+        api.get(`downloadTxt/${datInicial}/${orgId}/${status}`).then(resp => {
             setVendas(resp.data);  
         })
         
@@ -154,7 +156,7 @@ function ArqCmpTxt() {
         <div>
           <div className={classes.cadastrar}>
             <Button variant="contained" color="primary">
-              <Link to={`/PdfCmpExt/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
+              <Link to={`/PdfCmpExt/${datVencto}/${orgao}/${status}`} className={classes.link}>Imprime PDF</Link>        
             </Button>
           </div>
           <TableContainer component={Paper}>

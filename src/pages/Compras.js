@@ -85,6 +85,13 @@ export default function Compras() {
   const [total, setTotal] = useState([]);
   const [orgaos, setOrgaos] = useState([]);
   const [orgao, setOrgao] = useState(0);
+  const [regStatus, setRegStatus] = useState('A');
+
+  const status = [
+    {"staId": "A", "staDescricao": "ATIVOS"},
+    {"staId": "F", "staDescricao": "FÉRIAS"},
+    {"staId": "T", "staDescricao": "TODOS"},
+  ]
 
   useEffect(() => {
 
@@ -112,12 +119,12 @@ export default function Compras() {
     //    setCompras(response.data);        
     //})
        
-    api.get(`findCompras/${datVencto}`).then(response => {
+    api.get(`findCompras/${datVencto}/${regStatus}`).then(response => {
       setCompras(response.data);
       
     })
 
-    api.get(`totCompras/${datVencto}`).then(resp => {
+    api.get(`totCompras/${datVencto}/${regStatus}`).then(resp => {
       setTotal(resp.data);
     })
 
@@ -140,21 +147,21 @@ export default function Compras() {
 
   useEffect(() => {
     if (orgao !== 0 ) {
-      api.get(`findCmpOrgao/${datVencto}/${orgao}`).then(response => {
+      api.get(`findCmpOrgao/${datVencto}/${orgao}/${regStatus}`).then(response => {
           setCompras(response.data);        
       })
-      api.get(`totCmpOrgao/${datVencto}/${orgao}`).then(resp => {
+      api.get(`totCmpOrgao/${datVencto}/${orgao}/${regStatus}`).then(resp => {
         setTotal(resp.data);
       })
     }else {
-      api.get(`findCompras/${datVencto}`).then(response => {
+      api.get(`findCompras/${datVencto}/${regStatus}`).then(response => {
         setCompras(response.data);        
       })
-      api.get(`totCompras/${datVencto}`).then(resp => {
+      api.get(`totCompras/${datVencto}/${regStatus}`).then(resp => {
         setTotal(resp.data);
       })
     }        
-  },[datVencto,orgao]);
+  },[datVencto,orgao, regStatus]);
   
   return (
     <div>
@@ -184,15 +191,28 @@ export default function Compras() {
           {orgaos.map((row) => (
             <MenuItem key={row.orgId} value={row.orgId}>{row.orgDescricao}</MenuItem>
           ))}
-        </Select>   
+        </Select> 
+        <Select 
+          className={classes.select}
+          variant="outlined"
+          label="Status"
+          labelId="staServ" 
+          id="staServ" 
+          value={regStatus} 
+          onChange={(e) => {setRegStatus(e.target.value)}}                 
+        >
+          {status.map((row) => (
+            <MenuItem key={row.staId} value={row.staId}>{row.staDescricao}</MenuItem>
+          ))}
+        </Select> 
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/pdfCmpVenc/${datVencto}/${orgao}`} className={classes.link}>Imprime PDF</Link>        
+            <Link to={`/pdfCmpVenc/${datVencto}/${orgao}/${regStatus}`} className={classes.link}>Imprime PDF</Link>        
           </Button>
         </div>
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/ArqCmpTxt/${datVencto}/${orgao}`} className={classes.link}>Arquivo TXT</Link>        
+            <Link to={`/ArqCmpTxt/${datVencto}/${orgao}/${regStatus}`} className={classes.link}>Arquivo TXT</Link>        
           </Button>
         </div>
         <div className={classes.totaliza}>

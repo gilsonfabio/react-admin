@@ -143,6 +143,7 @@ function PdfCmpVenc() {
         let dataInicial = params.datVencto;
         let dataFinal = params.datVencto;
         let orgId = params.orgao;
+        let status = params.regStatus;
         if (orgId === '') {
            orgId = '999';
         }
@@ -159,12 +160,12 @@ function PdfCmpVenc() {
             })
 
 
-            api.get(`pdfVctOrgao/${dataInicial}/${dataFinal}/${orgId}`).then(resp => {
+            api.get(`pdfVctOrgao/${dataInicial}/${dataFinal}/${orgId}/${status}`).then(resp => {
                 setVendas(resp.data);  
             })
         }else {
             console.log('2')
-            api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}`).then(resp => {
+            api.get(`pdfVdaVenc/${dataInicial}/${dataFinal}/${status}`).then(resp => {
                 setVendas(resp.data);  
             })
         }            

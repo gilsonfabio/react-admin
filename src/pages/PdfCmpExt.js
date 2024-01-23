@@ -141,10 +141,11 @@ function PdfCmpExt() {
 
         let datInicial = params.datVencto;
         let orgId = params.orgao;
+        let status = params.status;
         console.log('Codigo Orgão:',orgId);  
         setIdOrg(params.orgao); 
 
-        api.get(`relFecTxt/${datInicial}/${orgId}`).then(resp => {
+        api.get(`relFecTxt/${datInicial}/${orgId}/${status}`).then(resp => {
             setVendas(resp.data);  
         })
 
