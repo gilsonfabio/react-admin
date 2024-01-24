@@ -134,17 +134,6 @@ export default function Compras() {
 
   },[]);
 
-  //useEffect(() => {
-  //  api.get(`findCompras/${datVencto}`).then(response => {
-  //      setCompras(response.data);
-  //      
-  //  })
-  //  api.get(`totCompras/${datVencto}`).then(resp => {
-  //    setTotal(resp.data);
-  //  })  
-  //     
-  //},[datVencto]);
-
   useEffect(() => {
     if (orgao !== 0 ) {
       api.get(`findCmpOrgao/${datVencto}/${orgao}/${regStatus}`).then(response => {
@@ -161,7 +150,7 @@ export default function Compras() {
         setTotal(resp.data);
       })
     }        
-  },[datVencto,orgao, regStatus]);
+  },[datVencto, orgao, regStatus]);
   
   return (
     <div>

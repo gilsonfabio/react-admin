@@ -128,7 +128,7 @@ export default function MainRoutes() {
             <Route path="/extratos" element={<Extratos/>} />
             <Route path="/vdaemissao" element={<VdaEmissao/>} />
             <Route path="/vdavencimento" element={<VdaVencimento/>} />
-            <Route path="/pdfCmpVenc/:datVencto/:orgao" element={<PdfCmpVenc />} />
+            <Route path="/pdfCmpVenc/:datVencto/:orgao/:regStatus" element={<PdfCmpVenc />} />
             <Route path="/pdfCmpEmis/:datInicio/:datFinal/:convenio/:servidor" element={<PdfCmpEmis />} />
             <Route path="/pdfVctCompras/:datInicio/:datFinal/:convenio/:servidor" element={<PdfVctCompras />} />
             <Route path="/extAdmin/" element={<ExtAdmin />} />
@@ -137,9 +137,9 @@ export default function MainRoutes() {
             <Route path="/impficha/:usrId" element={<ImpFicha/>} />
             <Route path="/pdfcnvcontrato/:usrId" element={<PdfCnvContrato/>} />
 
-            <Route path="/arqCmpTxt/:datVencto/:orgao" element={<ArqCmpTxt />} />
+            <Route path="/arqCmpTxt/:datVencto/:orgao/:regStatus" element={<ArqCmpTxt />} />
             <Route path="/corSaldo" element={<CorSaldo />} />
-            <Route path="/PdfCmpExt/:datVencto/:orgao" element={<PdfCmpExt />} />
+            <Route path="/PdfCmpExt/:datVencto/:orgao/:status" element={<PdfCmpExt />} />
 
         </Routes>        
     )
