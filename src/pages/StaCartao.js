@@ -97,11 +97,21 @@ export default function AltServidores() {
   const [usrCartao, setUsrCartao] = useState('');
   const [usrStatus, setUsrStatus] = useState('');
   const [desStatus, setDesStatus] = useState('');
+  const [usrSalLiquido,  setUsrSalLiquido] = useState('');
+  const [usrSalBase, setUsrSalBase] = useState('');
+  const [usrSalBruto,  setUsrSalBruto] = useState('');
+  const [altSaldo, setAltSaldo] = useState('');
 
   const status = [
       {'staId':'A', 'staDescricao':'LIBERADO' },
       {'staId':'B', 'staDescricao':'BLOQUEADO'},
-  ];  
+      {'staId':'F', 'staDescricao':'FÉRIAS'},
+  ]; 
+  
+  const saldos = [
+    {'sldId':'N', 'sldDesc':'NÃO' },
+    {'sldId':'S', 'sldDesc':'SIM'},
+  ]; 
    
   const navigate = useNavigate();
   const params = useParams();
@@ -115,15 +125,22 @@ export default function AltServidores() {
   useEffect(() => { 
     //let idUsr = params.usrId;    
     api.get(`searchUser/${idUsr}`).then(response => {
-        setUsrNome(response.data[0].usrNome);
-        setUsrObsBloqueio(response.data[0].usrObsBloqueio);
-        setUsrCartao(response.data[0].usrCartao);
-        setUsrStatus(response.data[0].usrStatus);
-        if (response.data[0].usrStatus === 'A') {
-          setDesStatus('LIBERADO')
-        }else {
+      setUsrNome(response.data[0].usrNome);
+      setUsrObsBloqueio(response.data[0].usrObsBloqueio);
+      setUsrCartao(response.data[0].usrCartao);
+      setUsrStatus(response.data[0].usrStatus);
+      setUsrSalBruto(response.data[0].usrSalBruto);
+      setUsrSalBase(response.data[0].usrSalBase);
+      setUsrSalLiquido(response.data[0].usrSalLiquido);
+      if (response.data[0].usrStatus === 'A') {
+        setDesStatus('LIBERADO')
+      }else { 
+        if (response.data[0].usrStatus === 'B') {
           setDesStatus('BLOQUEADO')
+        }else{
+          setDesStatus('FÉRIAS')
         }
+      }    
     })
   },[]);
   
@@ -131,11 +148,16 @@ export default function AltServidores() {
     e.preventDefault();
        
     let idSrv = params.usrId;
-    api.put(`altstatus/${idSrv}`, {
+    api.post(`updLimite`, {
+      idSrv,
       usrNome,
       usrObsBloqueio,
       usrCartao,
-      usrStatus,      
+      usrStatus,
+      usrSalBase,
+      usrSalBruto,
+      usrSalLiquido,
+      altSaldo      
     }).then(() => {
         alert('Status Cartão alterado com sucesso!')
     }).catch(() => {
@@ -196,7 +218,33 @@ export default function AltServidores() {
               autoFocus                
               value={usrCartao} 
               onChange={(e) => {setUsrCartao(e.target.value)}} 
-            />        
+            />      
+            <TextField 
+              className={classes.input}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="salariobase"
+              label="Salario Base"
+              name="salariobase"
+              autoFocus                
+              value={usrSalBase} 
+              onChange={(e) => {setUsrSalBase(e.target.value)}} 
+            />
+            <TextField 
+              className={classes.input}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="salarioBruto"
+              label="Salario Bruto"
+              name="salarioBruto"
+              autoFocus                
+              value={usrSalBruto} 
+              onChange={(e) => {setUsrSalBruto(e.target.value)}} 
+            />  
           </div>
           <div className={classes.right}>
             <label className={classes.label}>Status Atual: {desStatus}</label>
@@ -225,7 +273,34 @@ export default function AltServidores() {
                 autoFocus                
                 value={usrObsBloqueio} 
                 onChange={(e) => {setUsrObsBloqueio(e.target.value)}} 
-            />            
+            />
+            <TextField 
+              className={classes.input}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="salarioliq"
+              label="Salario Liquido"
+              name="salarioliq"
+              autoFocus                
+              value={usrSalLiquido} 
+              onChange={(e) => {setUsrSalLiquido(e.target.value)}} 
+            />  
+            <label className={classes.label}>Confirma Alt. Limite Compra</label>
+            <Select 
+                className={classes.select}
+                variant="outlined"
+                label="Altera Saldo"
+                labelId="Altera Saldo" 
+                id="altsaldo" 
+                value={altSaldo} 
+                onChange={(e) => {setAltSaldo(e.target.value)}}                 
+            >
+              {saldos.map((row) => (
+                <MenuItem key={row.sldId} value={row.sldId}>{row.sldDesc}</MenuItem>
+              ))}
+            </Select>          
           </div>
         </div>  
       </TabPanel>
