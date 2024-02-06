@@ -265,7 +265,6 @@ export default function AltServidores() {
                 className={classes.input}
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 id="observacao"
                 label="Observação do Status"
