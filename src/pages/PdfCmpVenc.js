@@ -144,7 +144,7 @@ function PdfCmpVenc() {
         let dataFinal = params.datVencto;
         let orgId = params.orgao;
         let status = params.regStatus;
-        if (orgId === '') {
+        if (orgId === '' || orgId === '0') {
            orgId = '999';
         }
 

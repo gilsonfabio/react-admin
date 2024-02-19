@@ -144,10 +144,15 @@ function PdfCmpExt() {
         let status = params.status;
         console.log('Codigo Orgão:',orgId);  
         setIdOrg(params.orgao); 
-
-        api.get(`relFecTxt/${datInicial}/${orgId}/${status}`).then(resp => {
-            setVendas(resp.data);  
-        })
+        if (orgId !== 0) {
+            api.get(`relFecTxt/${datInicial}/${orgId}/${status}`).then(resp => {
+                setVendas(resp.data);  
+            })
+        }else {
+            api.get(`relFecham/${datInicial}/${status}`).then(resp => {
+                setVendas(resp.data);  
+            })
+        }    
 
     },[]);
 
@@ -156,7 +161,7 @@ function PdfCmpExt() {
             setOrgao(response.data)
             setOrgDescricao(response.data[0].orgDescricao)
             console.log(orgDescricao)
-        }) 
+        })
     },[idOrg]);
 
     function emitePdf() {        
