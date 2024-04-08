@@ -66,7 +66,7 @@ import ImpFicha from './pages/ImpFicha';
 import PdfCnvContrato from './pages/PdfCnvContrato';
 import DelUser from './pages/DelServidor';
 import ArqCmpTxt from './pages/ArqCmpTxt';
-import CorSaldo from './pages/CorSldSrv';
+import VdaOrgao from './pages/VdaVctOrgao';
 import PdfCmpExt from './pages/PdfCmpExt';
  
 export default function MainRoutes() {
@@ -138,7 +138,7 @@ export default function MainRoutes() {
             <Route path="/pdfcnvcontrato/:usrId" element={<PdfCnvContrato/>} />
 
             <Route path="/arqCmpTxt/:datVencto/:orgao/:regStatus" element={<ArqCmpTxt />} />
-            <Route path="/corSaldo" element={<CorSaldo />} />
+            <Route path="/vdaOrgao" element={<VdaOrgao />} />
             <Route path="/PdfCmpExt/:datVencto/:orgao/:status" element={<PdfCmpExt />} />
 
         </Routes>        

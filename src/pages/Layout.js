@@ -140,7 +140,7 @@ export default function Layout() {
     { name: 'Vdas Vencimento', to: '/vdavencimento', icon: <AssignmentReturnedIcon /> },    
     { name: 'Extrato Admin', to: '/extAdmin', icon: <AssignmentReturnedIcon /> },   
     { name: 'Compras Servidor', to: '/cmpservidor', icon: <AssignmentReturnedIcon /> },
-    { name: 'Corrige Saldo', to: '/corsaldo', icon: <AssignmentReturnedIcon /> },    
+    { name: 'Vdas Org.Admin', to: '/vdaOrgao', icon: <AssignmentReturnedIcon /> },    
   ];
 
   useEffect(() => {    
