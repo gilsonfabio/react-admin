@@ -111,7 +111,7 @@ export default function VdaVctOrgao() {
     
     api.post('totOrgao', {
       datInicio,
-    }).then(() => {
+    }).then((response) => {
       setCompras(response.data);
     }).catch(() => {
       alert('Erro na leitura Orgão Administrativo!');
@@ -122,7 +122,7 @@ export default function VdaVctOrgao() {
   useEffect(() => {    
     api.post('totOrgao', {
       datInicio,
-    }).then(() => {
+    }).then((response) => {
       setCompras(response.data);
     }).catch(() => {
       alert('Erro na leitura Orgão Administrativo!');
