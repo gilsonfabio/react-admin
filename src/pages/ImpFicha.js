@@ -655,7 +655,7 @@ function ImpFicha() {
             { 
                 table: {
                     widths: ['100%'],
-                    heights: [20],                    
+                    heights: [10],                    
                     body: [
                         [
                             { 
