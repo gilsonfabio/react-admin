@@ -87,6 +87,8 @@ export default function VdaVctOrgao() {
   const [convenio, setConvenio] = useState(0);
   const [servidor, setServidor] = useState(0);
 
+  const [atualiza, setAtualiza] = useState(0);
+
   useEffect(() => {
 
     let newDate = new Date();
@@ -107,26 +109,33 @@ export default function VdaVctOrgao() {
     let dataNew = yearNew + '-' + monthNew + '-' + 15;
     setDatInicio(dataNew);
 
-    //console.log('Nova Data:', dataNew);
+    console.log('Nova Data:', datInicio);
     
-    api.post('totOrgao', {
-      datInicio,
-    }).then((response) => {
-      setCompras(response.data);
-    }).catch(() => {
-      alert('Erro na leitura Orgão Administrativo!');
-    })  
+    //api.post('totOrgao', {
+    //  datInicio,
+    //}).then((response) => {
+    //  setCompras(response.data);
+    //}).catch(() => {
+    //  alert('Erro na leitura Orgão Administrativo!');
+    //})  
 
   },[]);
 
   useEffect(() => {    
-    api.post('totOrgao', {
-      datInicio,
-    }).then((response) => {
-      setCompras(response.data);
-    }).catch(() => {
-      alert('Erro na leitura Orgão Administrativo!');
-    })  
+
+    console.log('Data Modificada:', datInicio);
+
+    if (atualiza === 1 ) {
+      api.post('totOrgao', {
+        datInicio,
+      }).then((response) => {
+        setCompras(response.data);
+      }).catch(() => {
+        alert('Erro na leitura Orgão Administrativo!');
+      })  
+    }
+    
+    setAtualiza(1);
 
   },[datInicio]);
 
