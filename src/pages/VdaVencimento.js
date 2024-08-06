@@ -111,8 +111,7 @@ export default function VdaVencimento() {
     console.log('Nova Data:', dataNew);
        
     api.get(`vctPeriodo/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(response => {
-      setCompras(response.data);
-      
+      setCompras(response.data);      
     })
 
     api.get(`somVctComp/${datInicio}/${datFinal}/${convenio}/${servidor}`).then(resp => {

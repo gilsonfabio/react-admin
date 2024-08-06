@@ -72,7 +72,7 @@ export default function Login() {
           O seu administrador de cartões
         </Typography>
         <Typography className={classes.versao}>
-          versão: 1.42 - 05/01/2024
+          versão: 1.43 - 06/08/2024
         </Typography>
       </div>
       <Paper className={classes.form} elevation={3}>

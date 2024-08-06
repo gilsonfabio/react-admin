@@ -89,6 +89,7 @@ export default function VdaVctOrgao() {
 
   const [atualiza, setAtualiza] = useState(0);
 
+  /*
   useEffect(() => {
 
     let newDate = new Date();
@@ -120,7 +121,8 @@ export default function VdaVctOrgao() {
     //})  
 
   },[]);
-
+  */
+ 
   useEffect(() => {    
 
     console.log('Data Modificada:', datInicio);
