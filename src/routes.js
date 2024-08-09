@@ -68,6 +68,7 @@ import DelUser from './pages/DelServidor';
 import ArqCmpTxt from './pages/ArqCmpTxt';
 import VdaOrgao from './pages/VdaVctOrgao';
 import PdfCmpExt from './pages/PdfCmpExt';
+import PdfVctOrgao from './pages/PdfVctOrgao';
  
 export default function MainRoutes() {
     return(
@@ -140,6 +141,7 @@ export default function MainRoutes() {
             <Route path="/arqCmpTxt/:datVencto/:orgao/:regStatus" element={<ArqCmpTxt />} />
             <Route path="/vdaOrgao" element={<VdaOrgao />} />
             <Route path="/PdfCmpExt/:datVencto/:orgao/:status" element={<PdfCmpExt />} />
+            <Route path="/PdfVctOrgao/:datInicio" element={<PdfVctOrgao />} />
 
         </Routes>        
     )

@@ -160,7 +160,7 @@ export default function VdaVctOrgao() {
           
         <div className={classes.cadastrar}>
           <Button variant="contained" color="primary">
-            <Link to={`/pdfVctOrgao/${datInicio}`} className={classes.link}>PDF</Link>        
+            <Link to={`/PdfVctOrgao/${datInicio}`} className={classes.link}>PDF</Link>        
           </Button>
         </div>     
       </div>
