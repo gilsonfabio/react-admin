@@ -141,6 +141,7 @@ export default function Layout() {
     { name: 'Extrato Admin', to: '/extAdmin', icon: <AssignmentReturnedIcon /> },   
     { name: 'Compras Servidor', to: '/cmpservidor', icon: <AssignmentReturnedIcon /> },
     { name: 'Vdas Org.Admin', to: '/vdaOrgao', icon: <AssignmentReturnedIcon /> },    
+    { name: 'Atualiza Tabelas', to: '/atuTabelas', icon: <AssignmentReturnedIcon /> },    
   ];
 
   useEffect(() => {    

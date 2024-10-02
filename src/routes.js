@@ -69,6 +69,8 @@ import ArqCmpTxt from './pages/ArqCmpTxt';
 import VdaOrgao from './pages/VdaVctOrgao';
 import PdfCmpExt from './pages/PdfCmpExt';
 import PdfVctOrgao from './pages/PdfVctOrgao';
+
+import Tabelas from './pages/Tabelas';
  
 export default function MainRoutes() {
     return(
@@ -142,6 +144,8 @@ export default function MainRoutes() {
             <Route path="/vdaOrgao" element={<VdaOrgao />} />
             <Route path="/PdfCmpExt/:datVencto/:orgao/:status" element={<PdfCmpExt />} />
             <Route path="/PdfVctOrgao/:datInicio" element={<PdfVctOrgao />} />
+            
+            <Route path="/atuTabelas" element={<Tabelas />} />
 
         </Routes>        
     )
