@@ -73,16 +73,16 @@ export default function Tabelas() {
   }
 
   function handleTabConvenios() {
-    api.put(`corCmpServ`).then(() => {
+    api.put(`corCmpConv`).then(() => {
         alert('Compras atualizadas com sucesso!')
     }).catch(() => {
-        alert('Erro na tentativa de atualização de compras!');
+        alert('Erro na tentativa de atualização de convênios!');
     })    
     navigate(-1);
   }
 
   function handleTabOrgaos() {
-    api.put(`totOrgaos`).then(() => {
+    api.post(`totOrgaos`).then(() => {
         alert('Compras atualizadas com sucesso!')
     }).catch(() => {
         alert('Erro na tentativa de atualização dos orgãos!');
