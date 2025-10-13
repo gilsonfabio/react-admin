@@ -89,6 +89,7 @@ export default function Compras() {
 
   const status = [
     {"staId": "A", "staDescricao": "ATIVOS"},
+    {"staId": "B", "staDescricao": "BLOQUEADOS"},
     {"staId": "F", "staDescricao": "FÉRIAS"},
     {"staId": "T", "staDescricao": "TODOS"},
   ]
